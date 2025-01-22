@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="/logo.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+    <link rel="stylesheet" href="/register/style.css">
+</head>
+
+<body>
+    <div class="font-[Inter] flex flex-col items-center justify-between min-h-dvh  text-gray-900 z-10">
+
+        <div class="max-w-md w-full p-8">
+            <div class="flex items-center justify-center">
+                <img src="/logo.png" alt="Company Logo" class="h-16 w-16">
+                <h3 class="text-3xl font-bold text-gray-500 ml-2">Sejalan</h3>
+            </div>
+
+            <!-- Center section -->
+
+            <div class="md:mt-8 mt-12">
+                <h2 class="text-start text-3xl font-bold text-gray-500">SIGN UP</h2>
+                <form id="signup-form" class="space-y-6 mt-4" action="/register" method="POST"
+                    enctype="multipart/form-data">
+                    <!-- First Step (Name, Email, Password) -->
+                    <div id="step-1" class="space-y-6 transition-transform duration-500 ease-in-out">
+                        <div class="grid grid-cols-2 gap-12">
+                            <div>
+                                <label for="firstname" class="text-sm font-medium leading-6">First name</label>
+                                <div>
+                                    <input id="firstname" name="firstName" type="text" required
+                                        class="w-full border-b-2 py-1.5 focus:outline-none placeholder:text-gray-400"
+                                        placeholder="First name">
+                                </div>
+                            </div>
+                            <div>
+                                <label for="lastname" class="text-sm font-medium leading-6">Last name</label>
+                                <div>
+                                    <input id="lastname" name="lastName" type="text" required
+                                        class="w-full border-b-2 py-1.5 focus:outline-none placeholder:text-gray-400"
+                                        placeholder="Last name">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="email-address" class="text-sm font-medium leading-6">Email</label>
+                            <div>
+                                <input id="email-address" name="email" type="email" autocomplete="email" required
+                                    pattern=".+@muet\.edu\.pk" title="Email format: rollno@muet.edu.pk"
+                                    class="w-full border-b-2 py-1.5 focus:outline-none placeholder:text-gray-400"
+                                    placeholder="rollno@muet.edu.pk">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="password" class="text-sm font-medium leading-6">Password</label>
+                            <div class="flex items-center relative">
+                                <input id="password" name="password" type="password" minlength="8" placeholder="Password" required
+                                    class="w-full border-b-2 py-1.5 placeholder:text-gray-400 focus:outline-none">
+                                <button type="button" id="show-password"
+                                    class="cursor-pointer absolute inset-y-0 right-0 flex items-center pr-3">
+                                    <img src="/eye-svgrepo-com.svg" alt="eye" id="eyeImage" class="h-5 w-5">
+                                    <img src="/eye-password-hide-svgrepo-com.svg" alt="closeEye" id="CloseEyeImage"
+                                        class="h-5 w-5 hidden">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Second Step (Phone, Department, Image) -->
+                    <div id="step-2" class="space-y-6 hidden transition-transform duration-500 ease-in-out">
+                        <div>
+                            <label for="department" class="text-sm font-medium leading-6 ">Department</label>
+                            <input id="department" name="department" type="hidden" required
+                                class="w-full border-b-2 py-1.5 focus:outline-none placeholder:text-gray-400"
+                                placeholder="e.g. Software Engineering">
+                        </div>
+                        <div>
+                            <label for="phone-number" class="text-sm font-medium leading-6">Phone Number</label>
+                            <input id="phone-number" name="phone" type="hidden" maxlength="11" autocomplete="tel" required
+                                class="w-full border-b-2 py-1.5 focus:outline-none placeholder:text-gray-400"
+                                placeholder="03XXXXXXXXX">
+                        </div>
+                        <div>
+                            <label for="image" class="text-sm font-medium leading-6">Profile Picture</label>
+                            <input id="image" name="img" type="hidden" required
+                                class="w-full text-sm file:mr-4 file:rounded-md file:border-0 file:bg-teal-500 file:py-2 file:px-4 file:text-sm file:font-semibold file:text-white hover:file:bg-teal-700 focus:outline-none disabled:pointer-events-none disabled:opacity-60" />
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="flex justify-between">
+                        <button type="button" id="back-btn" onclick="previousStep()"
+                            class="w-1/4 py-2 px-4 text-md font-semibold rounded-md text-white bg-gray-400 hover:bg-gray-600 hidden">
+                            Back
+                        </button>
+                        <button type="submit" id="next-btn"
+                            class="w-full py-2 px-4 text-md font-semibold rounded-md text-white bg-[#56c2cb] hover:bg-[#537a7d]">
+                            Next
+                        </button>
+                        <button type="submit" id="signup-btn"
+                            class="w-full py-2 px-4 ml-2 text-md font-semibold rounded-md text-white bg-[#56c2cb] hover:bg-[#537a7d] hidden">
+                            Sign Up
+                        </button>
+                    </div>
+                </form>
+                <p class="mt-4 text-center text-sm text-gray-500">
+                    Already have an account?
+                    <a href="/login" class="font-medium text-[#56c2cb] hover:text-[#537a7d]">
+                        Login
+                    </a>
+                </p>
+            </div>
+        </div>
+        <div class="mb-4 flex text-start">
+            <p class="text-sm text-gray-400">© 2025 Sejalan. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+<script>
+    const showPassword = document.getElementById('show-password');
+    const eyeImage = document.getElementById('eyeImage');
+    const CloseEyeImage = document.getElementById('CloseEyeImage');
+    const password = document.getElementById('password');
+
+    showPassword.addEventListener('click', () => {
+        if (password.type === 'password') {
+            password.type = 'text';
+            eyeImage.classList.add('hidden');
+            CloseEyeImage.classList.remove('hidden');
+
+        } else {
+            password.type = 'password';
+            eyeImage.classList.remove('hidden');
+            CloseEyeImage.classList.add('hidden');
+        }
+    });
+
+    let step = 1; 
+
+    // Move to the previous step
+    function previousStep() {
+        document.getElementById('step-2').classList.add('hidden');
+        document.getElementById('step-1').classList.remove('hidden');
+
+        // Hide the Back button, Show Next button, and Hide Sign Up button
+        document.getElementById('next-btn').classList.remove('hidden');
+        document.getElementById('signup-btn').classList.add('hidden');
+        document.getElementById('back-btn').classList.add('hidden');
+
+        document.querySelectorAll('#step-2 input').forEach((element) => {
+            element.type = "hidden";
+        })
+        step = 1;
+    }
+    document.getElementById('next-btn').addEventListener('click', (e) => {
+        const form = document.getElementById('signup-form');
+        if (form.checkValidity()) {
+            e.preventDefault();
+
+            document.getElementById('step-1').classList.add('hidden');
+            document.getElementById('step-2').classList.remove('hidden');
+
+            // Hide the Next button, Show Sign Up button and Back button
+            document.getElementById('next-btn').classList.add('hidden');
+            document.getElementById('signup-btn').classList.remove('hidden');
+            document.getElementById('back-btn').classList.remove('hidden');
+            let arr = ["text", "tel", "file"]
+            let i = 0;
+            document.querySelectorAll('#step-2 input').forEach((element) => {
+                element.type = arr[i++];
+            })
+            step = 2;
+        }
+    })
+</script>
+
+</html>

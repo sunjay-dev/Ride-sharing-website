@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="/logo.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/login/style.css">
+</head>
+
+<body>
+    <div class="font-[Inter] flex flex-col items-center justify-between min-h-dvh  text-gray-900 z-10">
+        
+        <div class="max-w-md w-full p-8">
+        <div class="flex items-center justify-center">
+            <img src="/logo.png" alt="Company Logo" class="h-16 w-16">
+            <h3 class="text-3xl font-bold text-gray-500 ml-2">Sejalan</h3>
+        </div>
+
+        <!-- Center section -->
+
+        <div class="md:mt-8 mt-12">
+            <h2 class="text-start text-3xl font-bold text-gray-500">LOGIN</h2>
+            <form class="space-y-6 mt-4" action="#" method="POST">
+                <div class="space-y-6">
+                    <div>
+                        <label for="email-address" class="text-sm font-medium leading-6">Email</label>
+                        <div>
+                            <input id="email-address" name="email" type="email" autocomplete="email" required
+                                class="w-full border-b-2 py-1.5 focus:outline-none placeholder:text-gray-400"
+                                placeholder="22SW001@muet.edu.pk">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="password" class="text-sm font-medium leading-6">Password</label>
+                        <div class="flex items-center relative">
+                            <input id="password" name="password" type="password" placeholder="Password" required
+                                class="w-full border-b-2 py-1.5 placeholder:text-gray-400 focus:outline-none">
+                            <button type="button" id="show-password"
+                                class="cursor-pointer absolute inset-y-0 right-0 flex items-center pr-3">
+                                <img src="./eye-svgrepo-com.svg" alt="eye" id="eyeImage" class="h-5 w-5">
+                                <img src="./eye-password-hide-svgrepo-com.svg" alt="closeEye" id="CloseEyeImage"
+                                    class="h-5 w-5 hidden">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-end text-sm">
+                    <a href="#" class="font-medium text-[#56c2cb] hover:text-[#537a7d]">
+                        Forget password?
+                    </a>
+                </div>
+                <div>
+                    <button type="submit"
+                        class="w-full py-2 px-4 text-md font-semibold rounded-md text-white bg-[#56c2cb] hover:bg-[#537a7d]">
+                        Log in
+                    </button>
+                </div>
+            </form>
+            <p class="mt-4 text-center text-sm text-gray-500">
+                Don't have an account?
+                <a href="/signup" class="font-medium text-[#56c2cb] hover:text-[#537a7d]">
+                    Sign Up
+                </a>
+            </p>
+        </div>
+        </div>
+        <div class="mb-4 flex text-start">
+            <p class="text-sm text-gray-400">© 2025 Sejalan. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+<script>
+    const showPassword = document.getElementById('show-password');
+    const eyeImage = document.getElementById('eyeImage');
+    const CloseEyeImage = document.getElementById('CloseEyeImage');
+    const password = document.getElementById('password');
+    showPassword.addEventListener('click', () => {
+        if (password.type === 'password') {
+            password.type = 'text';
+            eyeImage.classList.add('hidden');
+            CloseEyeImage.classList.remove('hidden');
+
+        } else {
+            password.type = 'password';
+            eyeImage.classList.remove('hidden');
+            CloseEyeImage.classList.add('hidden');
+        }
+    });
+</script>
+
+</html>
