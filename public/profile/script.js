@@ -74,7 +74,7 @@ function getUserRideStats(){
     }).then(data => {
         console.log(data);
         RidesForm.innerHTML = "";
-        let values = ["Rides Created", "Rides Completed", "Rides Canceled"]
+        let values = ["Created", "Completed", "Canceled"]
 
         for(let i=0;i<3; i++){
             let div= document.createElement('div');
