@@ -2,9 +2,14 @@ let imageUrl = document.getElementById('userImage');
 let imageName = document.getElementById('imageName');
 let joiningDate = document.getElementById('joiningDate');
 let detailsForm = document.getElementById('detailsForm');
+let RidesForm = document.getElementById('RidesForm');
 let userName = document.getElementById('userName');
 
 document.addEventListener("DOMContentLoaded", (event) => {
+    getPersonalDetails();
+    getUserRideStats();
+});
+function getPersonalDetails() {
     fetch('/profile', {
         method: 'POST',
         headers: {
@@ -16,8 +21,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
             }
             return response.json();
         }).then(data => {
-        
+            detailsForm.innerHTML = "";
             imageUrl.src= data.user.img;
+            userName.innerHTML = "";
             userName.innerHTML = data.user.firstName + " "+ data.user.lastName;
             joiningDate.innerHTML = formatDate(data.user.createdAt);      
 
@@ -28,7 +34,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 div.className="flex justify-between items-center";
 
                 let p1 = document.createElement('p');
-                p1.className="text-sm font-semibold text-gray-600";
+                p1.className="text-sm font-semibold text-gray-800";
                 p1. innerHTML =values[i];
 
                 let p2 = document.createElement('p');
@@ -52,7 +58,50 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }) .catch(error => {
             console.error('Error:', error);
         });
-});
+}
+
+function getUserRideStats(){
+    fetch('/getUserRideStats', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    }).then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.json();
+    }).then(data => {
+        console.log(data);
+        RidesForm.innerHTML = "";
+        let values = ["Rides Created", "Rides Completed", "Rides Canceled"]
+
+        for(let i=0;i<3; i++){
+            let div= document.createElement('div');
+            div.className="flex justify-between items-center";
+
+            let p1 = document.createElement('p');
+            p1.className="text-sm font-semibold text-gray-800";
+            p1. innerHTML =values[i];
+
+            let p2 = document.createElement('p');
+            p2.className="text-sm text-gray-800";
+            if(i===0)
+                p2.innerHTML = data.ridesCreated;
+            else if(i===1)
+            p2. innerHTML =data.ridesCompleted;
+            else
+            p2. innerHTML =data.ridesCanceled;
+
+            div.appendChild(p1);
+            div.appendChild(p2);
+
+            RidesForm.appendChild(div);
+        }
+    }) .catch(error => {
+        console.error('Error:', error);
+    });
+}
 
 function formatDate(dateString) {
     const monthNames = [

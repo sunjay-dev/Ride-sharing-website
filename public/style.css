@@ -853,10 +853,6 @@ video {
   height: 0.75rem;
 }
 
-.h-32 {
-  height: 8rem;
-}
-
 .h-36 {
   height: 9rem;
 }
@@ -1032,6 +1028,10 @@ video {
 .w-max {
   width: -moz-max-content;
   width: max-content;
+}
+
+.w-28 {
+  width: 7rem;
 }
 
 .max-w-4xl {
@@ -2093,11 +2093,6 @@ video {
   .sm\:rounded-l-lg {
     border-top-left-radius: 0.5rem;
     border-bottom-left-radius: 0.5rem;
-  }
-
-  .sm\:object-cover {
-    -o-object-fit: cover;
-       object-fit: cover;
   }
 
   .sm\:text-4xl {

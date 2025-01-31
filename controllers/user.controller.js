@@ -1,4 +1,5 @@
 const userModel = require('../models/user.models.js');
+const rideModel = require('../models/ride.models.js');
 const { isValidEmail } = require('../utils/email.utils.js');
 const { uploadImageToCloudinary } = require('../utils/cloudinary.utils.js');
 const { setUser, getUser } = require('../services/auth.services.js');
@@ -129,3 +130,19 @@ module.exports.sendAllMessages = async (req, res, next) => {
 
     await user.markAllMessagesAsRead();
 }
+
+module.exports.getUserRideStats = async (req, res, next) => {
+    const userId = req.user.id;
+    try {
+        const [ridesCreated, ridesCompleted, ridesCanceled] = await Promise.all([
+            rideModel.countDocuments({ driver: userId }),
+            rideModel.countDocuments({ driver: userId, status: "completed" }),
+            rideModel.countDocuments({ driver: userId, status: "canceled" })
+        ]);
+
+        res.status(200).json({ ridesCreated, ridesCompleted, ridesCanceled });
+    } catch (error) {
+        console.error("Error fetching ride stats:", error);
+        return { ridesCreated: 0, ridesCompleted: 0, ridesCanceled: 0 };
+    }
+};

@@ -47,4 +47,6 @@ router.post('/inbox', restrictToUserlogin,userController.sendAllMessages);
 
 router.post('/profile', restrictToUserlogin, userController.showProfile);
 
+router.post('/getUserRideStats', restrictToUserlogin, userController.getUserRideStats);
+
 module.exports = router;
