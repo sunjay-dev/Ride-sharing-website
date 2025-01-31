@@ -1,0 +1,61 @@
+<div class="flex items-center justify-between">
+    <div id="profileSkeleton"  class="flex items-center space-x-3 animate-pulse">
+        <div class="w-14 h-14 bg-gray-300 rounded-full"></div>
+        <div class="space-y-0.5">
+            <div class="h-4 w-12 bg-gray-300 rounded"></div>
+            <div class="h-5 w-24 bg-gray-400 rounded"></div>
+        </div>
+    </div>
+    
+    <div id="realProfile" class="items-center space-x-3 hidden">
+        <img src="" alt="User Profile" id="userImg" class="w-14 h-14 object-co rounded-full" />
+        <div class="space-y-0.5">
+            <p class="text-sm text-gray-500">Hello!</p>
+            <p id="userName" class="text-lg font-semibold text-gray-800 capitalize"></p>
+        </div>
+    </div>
+    <div class="flex space-x-3">
+        <a href="/inbox" class="relative w-12 h-12 bg-[#6d74fc] rounded-full flex items-center justify-center">
+            <button class="text-gray-600 cursor-pointer">
+                <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M11.5 1C10.9477 1 10.5 1.44772 10.5 2V3H9.99998C7.23864 3 4.99999 5.23825 4.99999 7.99975V11C4.99999 11.7377 4.76718 12.5722 4.39739 13.4148C4.03165 14.2482 3.55876 15.0294 3.14142 15.6439C2.38188 16.7624 2.85216 18.5301 4.40564 18.8103C5.42144 18.9935 6.85701 19.2115 8.54656 19.3527C8.54454 19.4015 8.54352 19.4506 8.54352 19.5C8.54352 21.433 10.1105 23 12.0435 23C13.9765 23 15.5435 21.433 15.5435 19.5C15.5435 19.4482 15.5424 19.3966 15.5402 19.3453C17.1921 19.204 18.596 18.9903 19.5943 18.8103C21.1478 18.5301 21.6181 16.7624 20.8586 15.6439C20.4412 15.0294 19.9683 14.2482 19.6026 13.4148C19.2328 12.5722 19 11.7377 19 11V7.99975C19 5.23825 16.7613 3 14 3H13.5V2C13.5 1.44772 13.0523 1 12.5 1H11.5ZM12 19.5C12.5113 19.5 13.0122 19.4898 13.4997 19.4715C13.5076 20.2758 12.8541 20.9565 12.0435 20.9565C11.2347 20.9565 10.5803 20.2778 10.5872 19.4747C11.0473 19.491 11.5191 19.5 12 19.5ZM9.99998 5C8.34305 5 6.99999 6.34298 6.99999 7.99975V11C6.99999 12.1234 6.65547 13.2463 6.22878 14.2186C5.79804 15.2 5.25528 16.0911 4.79599 16.7675C4.78578 16.7825 4.78102 16.7969 4.77941 16.8113C4.77797 16.8242 4.77919 16.8362 4.78167 16.8458C6.3644 17.1303 9.00044 17.5 12 17.5C14.9995 17.5 17.6356 17.1303 19.2183 16.8458C19.2208 16.8362 19.222 16.8242 19.2206 16.8113C19.2189 16.7969 19.2142 16.7825 19.204 16.7675C18.7447 16.0911 18.2019 15.2 17.7712 14.2186C17.3445 13.2463 17 12.1234 17 11V7.99975C17 6.34298 15.6569 5 14 5H9.99998Z"
+                            fill="#fff"></path>
+                    </g>
+                </svg>
+            </button>
+        
+            <span id="notification-badge"
+                class="absolute top-2.5 right-2.5 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 items-center justify-center transform translate-x-1/2 -translate-y-1/2 hidden">
+               
+            </span>
+        </a>
+        
+
+        <div class="w-12  bg-[#6d74fc] h-12 rounded-full flex items-center justify-center"
+            data-dropdown-toggle="dropdownAvatarName">
+            <button id="hamBurgerMenu" class="text-gray-600 cursor-pointer">
+                <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M20.75 7C20.75 7.41421 20.4142 7.75 20 7.75L4 7.75C3.58579 7.75 3.25 7.41421 3.25 7C3.25 6.58579 3.58579 6.25 4 6.25L20 6.25C20.4142 6.25 20.75 6.58579 20.75 7Z"
+                            fill="#fff"></path>
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M20.75 12C20.75 12.4142 20.4142 12.75 20 12.75L4 12.75C3.58579 12.75 3.25 12.4142 3.25 12C3.25 11.5858 3.58579 11.25 4 11.25L20 11.25C20.4142 11.25 20.75 11.5858 20.75 12Z"
+                            fill="#fff"></path>
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M20.75 17C20.75 17.4142 20.4142 17.75 20 17.75L4 17.75C3.58579 17.75 3.25 17.4142 3.25 17C3.25 16.5858 3.58579 16.25 4 16.25L20 16.25C20.4142 16.25 20.75 16.5858 20.75 17Z"
+                            fill="#fff"></path>
+                    </g>
+                </svg>
+            </button>
+        </div>
+
+
+    </div>
+</div>

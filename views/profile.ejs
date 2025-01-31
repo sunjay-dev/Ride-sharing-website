@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('partials/fonts') %>
+        <link rel="stylesheet" href="/style.css">
+        <title>User Profile</title>
+</head>
+
+<body class="Inter bg-gray-100">
+
+    <header class="bg-[#6d74fc] w-full py-4 px-6 rounded-b-xl flex items-center">
+        <a class="text-white text-lg cursor-pointer" id="backPage">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd"
+                    d="M12.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 011.414 1.414L8.414 10l4.293 4.293a1 1 0 010 1.414z"
+                    clip-rule="evenodd" />
+            </svg>
+        </a>
+        <h1 class="text-white text-center text-2xl font-semibold flex-grow">Profile</h1>
+    </header>
+
+    <div class="flex flex-col items-center">
+
+        <div class="w-full md:max-w-md  max-w-sm p-6 mt-4">
+
+            <div class="flex flex-col items-center" id="imageName">
+                <div class="relative w-24 h-24">
+                    <img src="" alt="User Avatar" class="w-24 h-24 rounded-full object-cover"
+                        id="userImage">
+                    <span
+                        class="absolute bottom-0 right-0 bg-[#6d74fc] text-white p-1.5 rounded-full text-xs font-bold shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </span>
+                </div>
+                <h1 class="text-xl font-semibold text-gray-700 mt-4" id="userName"></h1>
+                <p class="text-sm text-gray-500">Active Since - <span id="joiningDate"></span></p>
+            </div>
+
+            
+            <div class="mt-6">
+                <h2 class="text-gray-700 font-medium mb-4">Personal Details</h2>
+                <div class="border rounded-lg p-4 space-y-4" id="detailsForm">
+
+
+                </div>
+            </div>
+            <div class="mt-6">
+                <h2 class="text-gray-700 font-medium mb-4">Rides Details</h2>
+                <div class="border rounded-lg p-4 space-y-4">
+
+                    <div class="flex justify-between items-center">
+                        <p class="text-sm font-medium text-gray-600">Rides Taken</p>
+                        <p class="text-sm text-gray-800">12</p>
+                    </div>
+                </div>
+            </div>
+</body>
+<script src="/profile/script.js"></script>
+
+</html>

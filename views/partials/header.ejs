@@ -1,0 +1,19 @@
+<header class="bg-[#6d74fc] sticky top-0 z-10 flex justify-between items-center p-1.5 shadow-md">
+    <!-- Profile Icon -->
+    <div>
+        <img src="<%= imageUrl? imageUrl : `/header/defaultPerson.png` %>" class="cursor-pointer w-14 h-14 border-white border-2 rounded-[2rem] object-cover"
+            data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation"
+            aria-controls="drawer-navigation" />
+    </div>
+
+    <!-- Logo -->
+    <div class="flex items-center -ml-[1.8rem]">
+        <img src="/logo.png" alt="UniRide Logo" class="w-16 h-16">
+        <span class="text-white text-3xl font-bold -m-3">UniRide</span>
+    </div>
+
+    <!-- Chat Icon -->
+    <a class="cursor-pointer w-16 h-16" href="/inbox">
+        <img src="/header/message.png" alt="Chat Icon">
+    </a>
+</header>

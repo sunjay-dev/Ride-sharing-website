@@ -1,0 +1,76 @@
+<div class="fixed inset-0 bg-gray-800 bg-opacity-50  justify-center items-center z-50 hidden" id="filterDiv">
+    <!-- Filter Modal -->
+    <div class="bg-white w-[calc(100dvw-2rem)] p-6 rounded-lg shadow-lg">
+      <!-- Header -->
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-xl font-semibold text-gray-800">Filters</h2>
+        <button id="cancelButton" class="text-gray-500 hover:text-gray-800" >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+  
+      <!-- Price Filter -->
+      <div class="mb-4">
+        <label for="price" class="block text-sm font-medium text-gray-700 mb-2">Price</label>
+        <select id="price" class="w-full border rounded-lg px-3 py-2 text-sm text-gray-700 focus:ring-2 focus:ring-[#6d74fc]">
+          <option value="0">0</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+          <option value="150" selected>150</option>
+        </select>
+      </div>
+  
+      <!-- From Location -->
+      <div class="mb-4">
+        <label for="fromLocation" class="block text-sm font-medium text-gray-700 mb-2">From Location</label>
+        <input
+          type="text"
+          id="fromLocation"
+          placeholder="Enter starting point"
+          class="w-full border rounded-lg px-3 py-2 text-sm text-gray-700 focus:ring-2 focus:ring-[#6d74fc]"
+        />
+      </div>
+  
+      <!-- To Location -->
+      <div class="mb-4">
+        <label for="toLocation" class="block text-sm font-medium text-gray-700 mb-2">To Location</label>
+        <input
+          type="text"
+          id="toLocation"
+          placeholder="Enter destination"
+          class="w-full border rounded-lg px-3 py-2 text-sm text-gray-700 focus:ring-2 focus:ring-[#6d74fc]"
+        />
+      </div>
+  
+      <!-- Vehicle Type -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-2">Vehicle Type</label>
+        <div class="flex items-center space-x-4">
+          <label class="flex items-center">
+            <input type="radio" name="vehicleType" value="bike" class="text-[#6d74fc] focus:ring-[#6d74fc]">
+            <span class="ml-2 text-sm text-gray-700">Bike</span>
+          </label>
+          <label class="flex items-center">
+            <input type="radio" name="vehicleType" value="car" class="text-[#6d74fc] focus:ring-[#6d74fc]">
+            <span class="ml-2 text-sm text-gray-700">Car</span>
+          </label>
+          <label class="flex items-center">
+            <input type="radio" checked name="vehicleType" value="both" class="text-[#6d74fc] focus:ring-[#6d74fc]">
+            <span class="ml-2 text-sm text-gray-700">Both</span>
+          </label>
+        </div>
+      </div>
+  
+      <!-- Apply Buttons -->
+      <div class="flex justify-between items-center mt-6">
+        <button id="resetFilter" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400">
+          Reset
+        </button>
+        <button id="applyFilters" class="bg-[#6d74fc] text-white px-4 py-2 rounded-lg hover:bg-[#5e63d0]">
+          Apply Filters
+        </button>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('partials/fonts') %>
+    <title>Find Ride</title>
+    <link rel="stylesheet" href="/style.css">
+    
+</head>
+
+<body class="font-[Inter] bg-gray-100 p-4 pb-10 pt-2">
+    
+    <%- include('rideHistoryPartials/rideHistoryHeader') %>
+    
+    <div class="relative" id="switchTabId">
+        <div class="grid grid-cols-2 text-center">
+            <button id="availableTab" onclick="switchTab('available')"
+                class="py-2 text-[#6d74fc] font-bold border-b-2 border-[#6d74fc]">
+                As a Driver
+            </button>
+            <button id="historyTab" onclick="switchTab('history')"
+                class="py-2 text-gray-500 font-bold border-b-2 border-transparent">
+                As a Passenger
+            </button>
+        </div>
+        <!-- Underline -->
+        <div id="underline" class="absolute bottom-0 left-0 w-1/2 h-[2px] bg-[#6d74fc] transition-transform"></div>
+    </div>
+
+    
+
+        <!-- Main Content -->
+        <%- include('rideHistoryPartials/noRide') %>
+        
+
+    </div>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/rideHistory/script.js"></script>
+</html>

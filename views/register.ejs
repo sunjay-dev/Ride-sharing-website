@@ -2,16 +2,9 @@
 <html lang="en">
 
 <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-        rel="stylesheet">
-    <meta charset="UTF-8">
-    <link rel="shortcut icon" href="/logo.png" type="image/x-icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('partials/fonts') %>
     <title>Sign up</title>
-    <link rel="stylesheet" href="/register/style.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
@@ -19,17 +12,22 @@
 
         <div class="max-w-md w-full p-8">
             <div class="flex items-center justify-center">
-                <img src="/logo.png" alt="Company Logo" class="h-16 w-16">
-                <h3 class="text-3xl font-bold text-gray-500 ml-2">Sejalan</h3>
+                <img src="/logo.png" alt="Company Logo" class="w-36">
             </div>
 
-            <!-- Center section -->
-
             <div class="md:mt-8 mt-12">
-                <h2 class="text-start text-3xl font-bold text-gray-500">SIGN UP</h2>
+                <h2 class="text-start text-3xl font-bold text-[#6d74fc]">SIGN UP</h2>
+
+                <div class="bg-red-100 mt-2 border border-red-400 text-red-700 w-full py-3 rounded-lg relative <%= !error ? 'hidden' : '' %>"" role="alert">
+                    <span class="block sm:inline pl-4"><%= error ? error : '' %></span>
+                    <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                    <svg class="fill-current h-6 w-6 text-red-500" onclick="closeErrorPage()" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+                    </span>
+            </div>
+            
                 <form id="signup-form" class="space-y-6 mt-4" action="/register" method="POST"
                     enctype="multipart/form-data">
-                    <!-- First Step (Name, Email, Password) -->
+
                     <div id="step-1" class="space-y-6 transition-transform duration-500 ease-in-out">
                         <div class="grid grid-cols-2 gap-12">
                             <div>
@@ -53,9 +51,9 @@
                             <label for="email-address" class="text-sm font-medium leading-6">Email</label>
                             <div>
                                 <input id="email-address" name="email" type="email" autocomplete="email" required
-                                    pattern=".+@muet\.edu\.pk" title="Email format: rollno@muet.edu.pk"
+                                    pattern=".+@students\.muet\.edu\.pk" title="Email format: rollno@students.muet.edu.pk"
                                     class="w-full border-b-2 py-1.5 focus:outline-none placeholder:text-gray-400"
-                                    placeholder="rollno@muet.edu.pk">
+                                    placeholder="rollno@students.muet.edu.pk">
                             </div>
                         </div>
                         <div>
@@ -73,13 +71,15 @@
                         </div>
                     </div>
 
-                    <!-- Second Step (Phone, Department, Image) -->
                     <div id="step-2" class="space-y-6 hidden transition-transform duration-500 ease-in-out">
                         <div>
                             <label for="department" class="text-sm font-medium leading-6 ">Department</label>
-                            <input id="department" name="department" type="hidden" required
-                                class="w-full border-b-2 py-1.5 focus:outline-none placeholder:text-gray-400"
-                                placeholder="e.g. Software Engineering">
+                            <div class="relative w-full max-w-md mx-auto">
+                                <input type="text" id="country-input" name="department" placeholder="e.g Software Engineering" autocomplete="off"
+                                       class="w-full border-b-2 py-1.5 focus:outline-none placeholder:text-gray-400">
+                                <div id="autocomplete-list" class="absolute z-10 w-full bg-white border border-gray-300 rounded-md hidden">
+                                </div>
+                            </div>
                         </div>
                         <div>
                             <label for="phone-number" class="text-sm font-medium leading-6">Phone Number</label>
@@ -89,96 +89,38 @@
                         </div>
                         <div>
                             <label for="image" class="text-sm font-medium leading-6">Profile Picture</label>
-                            <input id="image" name="img" type="hidden" required
-                                class="w-full text-sm file:mr-4 file:rounded-md file:border-0 file:bg-teal-500 file:py-2 file:px-4 file:text-sm file:font-semibold file:text-white hover:file:bg-teal-700 focus:outline-none disabled:pointer-events-none disabled:opacity-60" />
+                            <input id="image" name="img" type="hidden" required accept=".jpg, .jpeg, .png"
+                                class="w-full text-sm file:mr-4 file:rounded-md file:border-0 file:bg-[#5e63d0] file:py-2 file:px-4 file:text-sm file:font-semibold hover:file:cursor-pointer file:text-white hover:file:bg-[#9297fc] focus:outline-none disabled:pointer-events-none disabled:opacity-60" />
                         </div>
                     </div>
-
-                    <!-- Navigation Buttons -->
+                    
                     <div class="flex justify-between">
                         <button type="button" id="back-btn" onclick="previousStep()"
                             class="w-1/4 py-2 px-4 text-md font-semibold rounded-md text-white bg-gray-400 hover:bg-gray-600 hidden">
                             Back
                         </button>
                         <button type="submit" id="next-btn"
-                            class="w-full py-2 px-4 text-md font-semibold rounded-md text-white bg-[#56c2cb] hover:bg-[#537a7d]">
+                            class="w-full py-2 px-4 text-md font-semibold rounded-md text-white bg-[#6d74fc] hover:bg-[#5e63d0]">
                             Next
                         </button>
                         <button type="submit" id="signup-btn"
-                            class="w-full py-2 px-4 ml-2 text-md font-semibold rounded-md text-white bg-[#56c2cb] hover:bg-[#537a7d] hidden">
+                            class="w-full py-2 px-4 ml-2 text-md font-semibold rounded-md text-white bg-[#6d74fc] hover:bg-[#5e63d0] hidden">
                             Sign Up
                         </button>
                     </div>
                 </form>
                 <p class="mt-4 text-center text-sm text-gray-500">
                     Already have an account?
-                    <a href="/login" class="font-medium text-[#56c2cb] hover:text-[#537a7d]">
+                    <a href="/login" class="font-medium text-[#6d74fc] hover:text-[#5e63d0]">
                         Login
                     </a>
                 </p>
             </div>
         </div>
         <div class="mb-4 flex text-start">
-            <p class="text-sm text-gray-400">© 2025 Sejalan. All rights reserved.</p>
+            <p class="text-sm text-gray-400">© 2025 UniRide. All rights reserved.</p>
         </div>
     </div>
 </body>
-<script>
-    const showPassword = document.getElementById('show-password');
-    const eyeImage = document.getElementById('eyeImage');
-    const CloseEyeImage = document.getElementById('CloseEyeImage');
-    const password = document.getElementById('password');
-
-    showPassword.addEventListener('click', () => {
-        if (password.type === 'password') {
-            password.type = 'text';
-            eyeImage.classList.add('hidden');
-            CloseEyeImage.classList.remove('hidden');
-
-        } else {
-            password.type = 'password';
-            eyeImage.classList.remove('hidden');
-            CloseEyeImage.classList.add('hidden');
-        }
-    });
-
-    let step = 1; 
-
-    // Move to the previous step
-    function previousStep() {
-        document.getElementById('step-2').classList.add('hidden');
-        document.getElementById('step-1').classList.remove('hidden');
-
-        // Hide the Back button, Show Next button, and Hide Sign Up button
-        document.getElementById('next-btn').classList.remove('hidden');
-        document.getElementById('signup-btn').classList.add('hidden');
-        document.getElementById('back-btn').classList.add('hidden');
-
-        document.querySelectorAll('#step-2 input').forEach((element) => {
-            element.type = "hidden";
-        })
-        step = 1;
-    }
-    document.getElementById('next-btn').addEventListener('click', (e) => {
-        const form = document.getElementById('signup-form');
-        if (form.checkValidity()) {
-            e.preventDefault();
-
-            document.getElementById('step-1').classList.add('hidden');
-            document.getElementById('step-2').classList.remove('hidden');
-
-            // Hide the Next button, Show Sign Up button and Back button
-            document.getElementById('next-btn').classList.add('hidden');
-            document.getElementById('signup-btn').classList.remove('hidden');
-            document.getElementById('back-btn').classList.remove('hidden');
-            let arr = ["text", "tel", "file"]
-            let i = 0;
-            document.querySelectorAll('#step-2 input').forEach((element) => {
-                element.type = arr[i++];
-            })
-            step = 2;
-        }
-    })
-</script>
-
+<script src="/register/script.js" ></script>
 </html>

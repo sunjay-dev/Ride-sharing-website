@@ -1,0 +1,41 @@
+<div id="myModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 justify-center z-20 items-center flex hidden">
+    <div class="bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-md">
+        <h2 class="text-lg font-semibold mb-4" ></h2>
+        <p></p>
+        <div class="mt-4 flex justify-end">
+            <button class="bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded"
+                onclick="closeModal()">Cancel</button>
+            <button id="confirmDeleteButton"
+                class="bg-red-500 text-white font-medium py-2 px-4 rounded hover:bg-red-600 ml-2">Yes, Confirm</button>
+        </div>
+    </div>
+</div>
+<div id="myModalForP" class="fixed inset-0 bg-gray-800 bg-opacity-50 justify-center z-20 items-center flex hidden">
+    <div class="bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-md">
+        <h2 class="text-lg font-semibold mb-4" >Remove passenger</h2>
+        <p>Are you sure you want to remove this passenger?</p>
+        <div class="mt-4 flex justify-end">
+            <button class="bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded"
+                onclick="closeModalForP()">Cancel</button>
+            <button id="confirmDeleteButtonForP"
+                class="bg-red-500 text-white font-medium py-2 px-4 rounded hover:bg-red-600 ml-2">Yes, Confirm</button>
+        </div>
+    </div>
+</div>
+<div id="myModalForComplete" class="fixed inset-0 bg-gray-800 bg-opacity-50 justify-center z-20 items-center flex hidden">
+    <div class="bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-md">
+        <h2 class="text-lg font-semibold mb-4" >Complete Ride</h2>
+        <p>Have your ride completed?</p>
+        <div class="mt-4 flex justify-end">
+            <button class="bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded"
+                onclick="closeModalForComplete()">Cancel</button>
+            <button id="confirmDeleteButtonForComplete"
+                class="bg-[#6d74fc] text-white font-medium py-2 px-4 rounded hover:bg-[#5d62c3] ml-2">Yes, Confirm</button>
+        </div>
+    </div>
+</div>
+
+
+<div class="fixed inset-0 bg-gray-800 bg-opacity-50 justify-center items-center hidden" id="rideDetails">
+    
+</div>

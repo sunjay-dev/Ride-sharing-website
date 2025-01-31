@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('partials/fonts') %>
+        <title>Offer Ride</title>
+        <link rel="stylesheet" href="/style.css">
+</head>
+
+<body class="font-[Inter] bg-gray-100">
+    <%- include('createRidePartials/header') %>
+        <form class="flex-grow md:mt-4 mt-6" id="offerRidesOption">
+
+            <div class=" p-6 pt-4 max-w-lg mx-auto">
+                <h1 class="text-3xl font-bold text-[#6d74fc] mb-3">Offer a ride</h1>
+
+                <%- include('partials/success') %>
+
+                    <div class="py-4 space-y-4 relative">
+
+                        <div class="shadow p-6 rounded-lg bg-white">
+
+                            <div class="absolute left-6 top-10 flex flex-col items-center h-full">
+                                <div class="w-2.5 h-2.5 bg-gray-400 rounded-full"></div>
+                                <div class="h-14 w-0.5 bg-gray-400"></div>
+                                <div class="w-2.5 h-2.5 bg-gray-400 rounded-full"></div>
+                                <div class="h-12 w-0.5 bg-gray-400"></div>
+                                <div class="w-2.5 h-2.5 bg-[#6d74fc] rounded-full"></div>
+                            </div>
+
+                            <div class="pl-8 relative">
+                                <label for="fromOfferRide" class="block text-sm font-medium text-gray-600">From</label>
+                                <input type="text" placeholder="Leaving from" id="fromOfferRide" required
+                                    class="placeholder:text-lg placeholder:font-medium w-full border-gray-300 rounded-md focus:ring-2 focus:ring-[#6d74fc] focus:outline-none p-2">
+                                <div id="fromOfferRide-list"
+                                    class="absolute z-10 w-full bg-white border border-gray-300 rounded-md hidden">
+                                </div>
+                            </div>
+                            <div class="bg-gray-100 h-px mx-6 mt-2 mb-3"></div>
+
+                            <div class="pl-8 relative">
+                                <label for="toOfferRide" class="block text-sm font-medium text-gray-600">To</label>
+                                <input type="text" placeholder="Going to" id="toOfferRide" required
+                                    class="placeholder:text-lg placeholder:font-medium w-full border-gray-300 rounded-md focus:ring-2 focus:ring-[#6d74fc] focus:outline-none p-2">
+                                <div id="toOfferRide-list"
+                                    class="absolute z-10 w-full bg-white border border-gray-300 rounded-md hidden">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="grid grid-cols-2 gap-4">
+
+                            <div class="shadow p-4 rounded-lg bg-white">
+                                <label for="dateInputOfferRide" class="block text-sm font-medium text-gray-600">Leaving
+                                    Date</label>
+                                <input type="date" placeholder="Today" id="dateInputOfferRide" required
+                                    class="w-full border-gray-300 rounded-md focus:ring-2 focus:ring-[#6d74fc] focus:outline-none p-2 pl-[0.1rem]">
+                            </div>
+
+
+                            <div class="shadow p-4 rounded-lg bg-white">
+                                <label for="timeInputOfferRide" class="block text-sm font-medium text-gray-600">Leaving
+                                    Time</label>
+                                <input type="time" id="timeInputOfferRide" required
+                                    class="w-full border-gray-300 rounded-md focus:ring-2 focus:ring-[#6d74fc] focus:outline-none p-2">
+
+                            </div>
+                        </div>
+
+                        <div id="readOnlyerror"
+                            class="absolute left-1/2 w-max transform -translate-x-1/2 text-red-500 sm:text-[1rem] font-semibold opacity-0 pointer-events-none transition-all duration-500 ease-out">
+                        </div>
+
+                        <div class="shadow p-4 rounded-lg bg-white">
+                            <label for="vehicleOfferRide"
+                                class="block text-sm font-medium text-gray-600">Vehicle</label>
+                            <select id="vehicleOfferRide" required
+                                class="block w-full p-3 rounded-lg focus:outline-none focus:ring-[#6d74fc] focus:border-[#6d74fc]"
+                                onchange="handleVehicleSelection(this)">
+                                <option value="" class="text-gray-500" disabled selected>Select a vehicle...</option>
+                            </select>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+
+                            <div class="shadow p-4 rounded-lg bg-white">
+                                <label for="seatsOfferRide"
+                                    class="block text-sm font-medium text-gray-600">Seats</label>
+                                <input type="number" placeholder="2" id="seatsOfferRide" readonly required
+                                    class="w-full border-gray-300 rounded-md focus:ring-2 focus:ring-[#6d74fc] focus:outline-none p-2">
+                            </div>
+
+                            <div class="shadow p-4 rounded-lg bg-white">
+                                <label for="fareOfferRide" class="block text-sm font-medium text-gray-600">Fare</label>
+                                <input type="number" placeholder="Free" id="fareOfferRide" readonly required
+                                    class="w-full border-gray-300 rounded-md focus:ring-2 focus:ring-[#6d74fc] focus:outline-none p-2">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="OfferRideSubmitBtn"
+                        class="w-full bg-[#6d74fc] hover:bg-[#5e63d0] text-white font-bold py-2 px-4 rounded-lg mt-6 shadow focus:outline-none focus:ring-2 focus:ring-[#6d74fc]">
+                        Create
+                    </button>
+            </div>
+        </form>
+</body>
+<script src="/createRide/script.js"></script>
+</html>

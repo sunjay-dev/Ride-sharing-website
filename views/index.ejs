@@ -1,65 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-        rel="stylesheet">
-    <meta charset="UTF-8">
-    <link rel="shortcut icon" href="/logo.png" type="image/x-icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sejalan</title>
-    <link rel="stylesheet" href="/index/style.css">
+    <%- include('partials/fonts') %>
+        <title>UniRide</title>
+        <link rel="stylesheet" href="/style.css">
 </head>
 
 <body class="font-[Inter]">
 
-    <div class="flex-col bg-[#56c2cb] min-h-dvh flex items-center justify-center transaction duration-1000 ease-out" id="splash-screen">
-        <img src="/logo.png" alt="logo" class="w-32 h-32">
-        <p class="text-white text-4xl mt-4 font-semibold">sejalan</p>
+    <div class="flex-col bg-[#6d74fc] min-h-dvh flex items-center justify-center transaction duration-1000 ease-out"
+        id="splash-screen">
+        <img src="/niRide.png" alt="logo" class="w-52">
     </div>
 
-    <div class="flex flex-col justify-between min-h-dvh px-6 py-16 hidden transaction duration-1000 ease-in" id="main-content">
-        <!-- Welcome Text -->
-        <h1 class="text-3xl font-bold text-[#56c2cb] self-center">Welcome!</h1>
-        <!-- Logo Section -->
+    <div class="flex flex-col justify-between min-h-dvh px-6 py-16 hidden transaction duration-1000 ease-in"
+        id="main-content">
+
+        <h1 class="text-3xl font-bold text-[#6d74fc] self-center">Welcome!</h1>
+
         <div class="flex flex-col items-center">
-            <img src="logo.png" alt="Sejalan Logo" class="w-24 mb-2">
-            <p class="text-[#56c2cb] text-2xl font-semibold">sejalan</p>
+            <img src="logo.png" alt="UniRide Logo" class="w-48">
         </div>
-        <!-- Bottom Section -->
+
         <div class="flex flex-col items-center space-y-4">
-            <!-- Create Account Button -->
+
             <button
-                class="bg-[#56c2cb] text-white font-medium text-sm py-3 px-12 rounded-full shadow-lg hover:bg-[#4bb1b9]">
+                class="bg-[#6d74fc] text-white font-medium text-sm py-3 px-12 rounded-full shadow-lg hover:bg-[#5e63d0]">
                 CREATE AN ACCOUNT
             </button>
-            <!-- Login Text -->
-            <p class="text-gray-600">Already have an account?
-                <a href="/login" class="text-[#56c2cb] font-semibold hover:underline">Login</a>
+
+            <p class="text-gray-600 font-medium">Already have an account?
+                <a href="/login" class="text-[#6d74fc] font-semibold hover:underline">Login</a>
             </p>
         </div>
     </div>
-
-
 </body>
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const splash = document.getElementById("splash-screen");
-        const mainContent = document.getElementById("main-content");
-        
-        setTimeout(() => {
-            splash.classList.add("opacity-0");
-        }, 3000);
-        setTimeout(() => {
-            splash.classList.add("hidden");
-            mainContent.classList.remove("hidden");
-        }, 3500);
-    });
-    document.querySelector('button').onclick = ()=>{
-        window.location.href='/register';
-    } 
-</script>
-
+<script src="/index/script.js"></script>
 </html>

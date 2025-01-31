@@ -2,16 +2,9 @@
 <html lang="en">
 
 <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-        rel="stylesheet">
-    <meta charset="UTF-8">
-    <link rel="shortcut icon" href="/logo.png" type="image/x-icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('partials/fonts') %>
     <title>Login</title>
-    <link rel="stylesheet" href="/login/style.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
@@ -19,22 +12,27 @@
         
         <div class="max-w-md w-full p-8">
         <div class="flex items-center justify-center">
-            <img src="/logo.png" alt="Company Logo" class="h-16 w-16">
-            <h3 class="text-3xl font-bold text-gray-500 ml-2">Sejalan</h3>
+            <img src="/logo.png" alt="Company Logo" class="h-36">
         </div>
 
-        <!-- Center section -->
+        <div class="bg-red-100 mt-2 border border-red-400 text-red-700 w-full py-3 rounded-lg relative hidden" role="alert">
+            <span class="block sm:inline pl-4"></span>
+            <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+            <svg class="fill-current h-6 w-6 text-red-500" onclick="closeErrorPage()" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+            </span>
+    </div>
 
         <div class="md:mt-8 mt-12">
-            <h2 class="text-start text-3xl font-bold text-gray-500">LOGIN</h2>
-            <form class="space-y-6 mt-4" action="#" method="POST">
+            <h2 class="text-start text-3xl font-bold text-[#6d74fc]">LOGIN</h2>
+            <form class="space-y-6 mt-4">
                 <div class="space-y-6">
                     <div>
                         <label for="email-address" class="text-sm font-medium leading-6">Email</label>
                         <div>
                             <input id="email-address" name="email" type="email" autocomplete="email" required
+                            pattern=".+@students\.muet\.edu\.pk" title="Email format: rollno@students.muet.edu.pk"
                                 class="w-full border-b-2 py-1.5 focus:outline-none placeholder:text-gray-400"
-                                placeholder="22SW001@muet.edu.pk">
+                                placeholder="rollno@students.muet.edu.pk">
                         </div>
                     </div>
                     <div>
@@ -44,55 +42,37 @@
                                 class="w-full border-b-2 py-1.5 placeholder:text-gray-400 focus:outline-none">
                             <button type="button" id="show-password"
                                 class="cursor-pointer absolute inset-y-0 right-0 flex items-center pr-3">
-                                <img src="./eye-svgrepo-com.svg" alt="eye" id="eyeImage" class="h-5 w-5">
-                                <img src="./eye-password-hide-svgrepo-com.svg" alt="closeEye" id="CloseEyeImage"
-                                    class="h-5 w-5 hidden">
+                                <img src="/eye-svgrepo-com.svg" alt="eye" id="eyeImage" class="h-5 w-5 hidden">
+                                <img src="/eye-password-hide-svgrepo-com.svg" alt="closeEye" id="CloseEyeImage"
+                                    class="h-5 w-5">
                             </button>
                         </div>
                     </div>
                 </div>
                 <div class="text-end text-sm">
-                    <a href="#" class="font-medium text-[#56c2cb] hover:text-[#537a7d]">
+                    <a href="#" class="font-medium text-[#6d74fc] hover:text-[#5e63d0]">
                         Forget password?
                     </a>
                 </div>
                 <div>
                     <button type="submit"
-                        class="w-full py-2 px-4 text-md font-semibold rounded-md text-white bg-[#56c2cb] hover:bg-[#537a7d]">
+                        class="w-full py-2 px-4 text-md font-semibold rounded-md text-white bg-[#6d74fc] hover:bg-[#5e63d0]">
                         Log in
                     </button>
                 </div>
             </form>
             <p class="mt-4 text-center text-sm text-gray-500">
                 Don't have an account?
-                <a href="/signup" class="font-medium text-[#56c2cb] hover:text-[#537a7d]">
+                <a href="/signup" class="font-medium text-[#6d74fc] hover:text-[#5e63d0]">
                     Sign Up
                 </a>
             </p>
         </div>
         </div>
         <div class="mb-4 flex text-start">
-            <p class="text-sm text-gray-400">© 2025 Sejalan. All rights reserved.</p>
+            <p class="text-sm text-gray-400">© 2025 UniRide. All rights reserved.</p>
         </div>
     </div>
 </body>
-<script>
-    const showPassword = document.getElementById('show-password');
-    const eyeImage = document.getElementById('eyeImage');
-    const CloseEyeImage = document.getElementById('CloseEyeImage');
-    const password = document.getElementById('password');
-    showPassword.addEventListener('click', () => {
-        if (password.type === 'password') {
-            password.type = 'text';
-            eyeImage.classList.add('hidden');
-            CloseEyeImage.classList.remove('hidden');
-
-        } else {
-            password.type = 'password';
-            eyeImage.classList.remove('hidden');
-            CloseEyeImage.classList.add('hidden');
-        }
-    });
-</script>
-
+<script src="/login/script.js"></script>
 </html>

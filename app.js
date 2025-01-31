@@ -5,12 +5,14 @@ const cookieParser = require('cookie-parser');
 const connectToMongoDB = require('./config/db.connection.js');
 const app = express();
 
-connectToMongoDB(process.env.mongoUri).then(()=>{
+connectToMongoDB(process.env.mongoURI).then(()=>{
     console.log('Mongoose connected!')
 })
 
-// const rideRoutes = require('./routes/ride');
+const vehicleRoutes = require('./routes/vehicle.routes.js');
 const userRoutes = require('./routes/user.routes.js');
+const complaintRoutes = require('./routes/complaint.routes.js');
+const rideRoutes = require('./routes/ride.routes.js');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -20,7 +22,9 @@ app.set('view engine', 'ejs');
 app.set('views', path.resolve("./views"));
 
 app.use('/', userRoutes);
-// app.use('/ride',urlRoutes);
+app.use('/vehicle',vehicleRoutes);
+app.use('/ride',rideRoutes);
+app.use('/help',complaintRoutes);
 
 app.use(express.static(path.join(__dirname, "public"), { 
     setHeaders: (res, path) => {
@@ -33,9 +37,4 @@ app.use((req, res) => {
     res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
 });
 
-
-const port = process.env.PORT || 5000;
-
-app.listen(port, () => {
-    console.log(`Running on port : ${port}`)
-})
+module.exports = app;

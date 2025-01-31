@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/fonts') %>
+    <title>Find ride</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="font-[Inter] bg-gray-100 p-2">
+    <%- include('findRidePartials/Header') %>
+    <button id="ridenotificationBadge"
+    class="fixed top-20 left-1/2 transform -translate-x-1/2 bg-[#ffcc00] text-black font-semibold px-4 py-2 rounded-lg shadow-md hidden">
+    1 new ride available
+</button>
+
+    <div class="last:mb-16" id="findRidesForm">
+        
+        <div class="flex justify-between items-center m-4">
+           
+            <h2 class="font-semibold text-[1.4rem] text-[#3d5353]"><span id="countRides">0</span> Rides Available</h2>
+    
+            <button id="filterBtn"
+                class="bg-[#6d74fc] text-white px-4 py-2 rounded-lg hover:bg-[#5e63d0] flex items-center">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707l-6 6V21a1 1 0 01-1.447.894L10 19.618a1 1 0 01-.553-.894v-6.911l-6-6A1 1 0 013 6V4z" />
+                </svg>
+                Filter
+            </button>
+        </div>
+        
+        <%- include('findRidePartials/filter') %>
+        <%- include('findRidePartials/rideDetails') %>
+            <div id="ridesBoxes">
+                
+              <%- include('findRidePartials/findRideSkeleton') %>
+              
+            
+            </div>
+    </div>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/findRide/script.js"></script>
+</html>
