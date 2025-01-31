@@ -11,11 +11,6 @@ const complaintSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User ',
-        default: null
-    },
     name: {
         type: String,
         required: function() { return !this.user; },

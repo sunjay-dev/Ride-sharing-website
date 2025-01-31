@@ -12,7 +12,7 @@ const availableContent = document.getElementById('no-message');
 const historyContent = document.getElementById('no-history');
 const underline = document.getElementById('underline');
 const rideDetails = document.getElementById('rideDetails');
-let fetchedPassengerOne =false;
+let fetchedPassengerOne = false;
 function switchTab(tab) {
     if (tab === 'available') {
         availableTab.classList.add('text-[#6d74fc]', 'border-[#6d74fc]');
@@ -32,9 +32,9 @@ function switchTab(tab) {
         underline.style.transform = 'translateX(100%)';
         availableContent.classList.add('hidden');
         historyContent.classList.remove('hidden');
-        if(!fetchedPassengerOne){
-        fetchAsaPassenger();
-        fetchedPassengerOne=true;
+        if (!fetchedPassengerOne) {
+            fetchAsaPassenger();
+            fetchedPassengerOne = true;
         }
     }
 }
@@ -86,8 +86,8 @@ function ridestemplete(ride, driver) {
         </div>
 </div>`
 }
-function NoRideTemplete(){
-    return  `<div class="text-center text-gray-500 mt-4">
+function NoRideTemplete() {
+    return `<div class="text-center text-gray-500 mt-4">
         <p>No rides available.</p>
     </div>`
 }
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 availableContent.innerHTML += ridestemplete(ride, true);
             });
 
-            if(!availableContent.hasChildNodes()){
+            if (!availableContent.hasChildNodes()) {
                 availableContent.innerHTML = NoRideTemplete();
             }
         })
@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 });
 
-function fetchAsaPassenger(){
+function fetchAsaPassenger() {
     fetch('/ride/history/passenger', {
         method: 'POST',
         headers: {
@@ -137,7 +137,7 @@ function fetchAsaPassenger(){
             response.forEach(ride => {
                 historyContent.innerHTML += ridestemplete(ride, false);
             });
-            if(!historyContent.hasChildNodes()){
+            if (!historyContent.hasChildNodes()) {
                 historyContent.innerHTML = NoRideTemplete();
             }
         })
@@ -179,7 +179,7 @@ function manageRideDetailsTemplete(ride, driver) {
         hd = "hidden"
     }
     let carImg = `<img src="/bike.png" alt="Driver Photo" class="h-24 object-contain">`;
-    if(ride.vehicleDetails.vehicleType === "car"){
+    if (ride.vehicleDetails.vehicleType === "car") {
         carImg = `<img src="/car.png" alt="Driver Photo" class="h-[4.5rem] object-contain">`;
     }
     let passengerImg = ``;
@@ -199,7 +199,8 @@ function manageRideDetailsTemplete(ride, driver) {
       </div>
       <div class="sm:flex sm:flex-row h-full">
         <div class="relative sm:w-1/2 sm:h-full flex-shrink-0">
-          <img src="/map.png" alt="Map Screenshot" class="w-full h-32 sm:h-full object-cover">
+          <img src="/map_moblie.png" alt="Map Screenshot" class="w-full h-44 object-cover rounded-l-lg sm:hidden">
+            <img src="/map_desktop.png" alt="Map Screenshot" class="w-full h-full object-cover rounded-l-lg hidden sm:block">
         </div>
         <div class="px-6 py-4 sm:w-1/2 sm:overflow-y-auto">
           <div class="flex justify-between mb-4">

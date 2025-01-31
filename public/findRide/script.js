@@ -215,7 +215,8 @@ function manageRideDetailsTemplete(ride) {
                 </svg>
             </button>
             <!-- Map Screenshot -->
-            <img src="/map.png" alt="Map Screenshot" class="w-full h-44 sm:h-full sm:object-cover sm:rounded-l-lg">
+            <img src="/map_moblie.png" alt="Map Screenshot" class="w-full h-44 object-cover rounded-l-lg sm:hidden">
+            <img src="/map_desktop.png" alt="Map Screenshot" class="w-full h-full object-cover rounded-l-lg hidden sm:block">
         </div>
             <div id="readOnlyerror"
             class="absolute left-1/2 w-max transform z-20 -translate-x-1/2 text-red-500 sm:text-[1rem] font-semibold opacity-0 pointer-events-none transition-all duration-500 ease-out">

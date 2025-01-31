@@ -176,7 +176,8 @@ function manageRideDetailsTempleteForPassenger(ride) {
                 </svg>
             </button>
             <!-- Map Screenshot -->
-            <img src="/map.png" alt="Map Screenshot" class="w-full h-44 sm:h-full sm:object-cover sm:rounded-l-lg">
+            <img src="/map_moblie.png" alt="Map Screenshot" class="w-full h-44 object-cover rounded-l-lg sm:hidden">
+            <img src="/map_desktop.png" alt="Map Screenshot" class="w-full h-full object-cover rounded-l-lg hidden sm:block">
         </div>
 
         <!-- Content Section -->
@@ -297,7 +298,8 @@ function manageRideDetailsTempleteForDriver(ride) {
                 </svg>
             </button>
             <!-- Map Screenshot -->
-            <img src="/map.png" alt="Map Screenshot" class="w-full h-44 sm:h-full sm:object-cover sm:rounded-l-lg">
+           <img src="/map_moblie.png" alt="Map Screenshot" class="w-full h-44 object-cover rounded-l-lg sm:hidden">
+            <img src="/map_desktop.png" alt="Map Screenshot" class="w-full h-full object-cover rounded-l-lg hidden sm:block">
         </div>
 
         <!-- Content Section -->
