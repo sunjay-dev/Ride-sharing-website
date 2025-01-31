@@ -496,8 +496,8 @@ function confirmDelete(id, type) {
     document.getElementById('myModal').classList.remove('hidden');
 
     if (type === 'passenger') {
-        document.querySelector('#myModal h2').innerHTML = 'Cancel Booking';
-        document.querySelector('#myModal p').innerHTML = 'Are you sure you want to cancel this booking?';
+        document.querySelector('#myModal h2').innerHTML = 'Leave Ride';
+        document.querySelector('#myModal p').innerHTML = 'Are you sure you want to leave this ride?';
     } else if (type === 'driver') {
         document.querySelector('#myModal h2').innerHTML = 'Cancel Ride';
             document.querySelector('#myModal p').innerHTML = 'Are you sure you want to cancel this ride?';

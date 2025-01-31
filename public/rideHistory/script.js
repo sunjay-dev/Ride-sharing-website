@@ -178,6 +178,10 @@ function manageRideDetailsTemplete(ride, driver) {
     if (driver) {
         hd = "hidden"
     }
+    let carImg = `<img src="/bike.png" alt="Driver Photo" class="h-24 object-contain">`;
+    if(ride.vehicleDetails.vehicleType === "car"){
+        carImg = `<img src="/car.png" alt="Driver Photo" class="h-[4.5rem] object-contain">`;
+    }
     let passengerImg = ``;
     for (let passenger of ride.passengers) {
         passengerImg += `<img src="${passenger.img}" alt="Passenger 1" class="w-6 h-6 rounded-full object-cover">`
@@ -217,7 +221,7 @@ function manageRideDetailsTemplete(ride, driver) {
               </div>
             </div>
             <div class="flex flex-col justify-between">
-              <img src="/uber filp s.png" alt="Driver Photo" class="h-[4.5rem] object-contain">
+              ${carImg}
               <div class="capitalize flex flex-col justify-between items-center">
                 <p class="text-gray-800 font-medium text-[16px] capitalize">${ride.vehicleDetails.model}</p>
                 <p class="text-gray-500 text-[12px]">${ride.vehicleDetails.color} - ${ride.vehicleDetails.numberPlate}</p>
