@@ -31,7 +31,6 @@ async function fetchDetails() {
         }
         return response.json();
     }).then(data => {
-        console.log(data);
         profileSkeleton.classList.add('hidden');
         profileSkeleton.classList.remove('flex');
         userName.innerHTML = data.firstName + ' ' + data.lastName;
@@ -61,7 +60,6 @@ function fetchTwoAvailableRides() {
         }
         return response.json();
     }).then(data => {
-        console.log(data);
         availableRideContainer.innerHTML = '';
         data.forEach(ride => {
             availableRideContainer.innerHTML += manageAvailableTemplete(ride);
@@ -361,7 +359,6 @@ function openWhatsApp(phone) {
 }
 
 function OpenFindRide(id) {
-    console.log(id);
     window.location.href = `/find_ride?id=${id}`;
 }
 function manageCurrentRide() {
@@ -376,7 +373,6 @@ function manageCurrentRide() {
         }
         return response.json();
     }).then(data => {
-        console.log(data);
         currentRideDiv.innerHTML = '';
         if (data.ride)
             currentRideDiv.innerHTML += manageCurrentTemplete(data.ride, data.type);
@@ -399,7 +395,6 @@ function cancelBooking(id) {
         }
         return response.json();
     }).then(data => {
-        console.log(data);
         closeModal();
         rideDetails.classList.remove('flex');
         rideDetails.classList.add('hidden');
@@ -422,7 +417,6 @@ function cancelRide(id) {
         }
         return response.json();
     }).then(data => {
-        console.log(data);
         closeModal();
         rideDetails.classList.remove('flex');
         rideDetails.classList.add('hidden');
@@ -446,7 +440,6 @@ function removePassenger(rideId, passengerId) {
         }
         return response.json();
     }).then(data => {
-        console.log(data);
         closeModalForP();
         rideDetails.classList.remove('flex');
         rideDetails.classList.add('hidden');
@@ -461,10 +454,8 @@ function getCurrentRideDetails(id, type) {
     socket.emit('fetchRidebyId', { id: id });
 
     socket.off('sendRideOfId');
-    console.log(type);
 
     socket.on('sendRideOfId', (details) => {
-        console.log(details);
         openRideDetails(details, type);
     });
 }
@@ -472,7 +463,6 @@ function getCurrentRideDetails(id, type) {
 const rideDetails = document.getElementById('rideDetails');
 
 function openRideDetails(rideData, type) {
-    console.log("here", type);
     if (type === 'driver')
         rideDetails.innerHTML = manageRideDetailsTempleteForDriver(rideData);
     else
@@ -545,7 +535,6 @@ function confirmComplete(rideId) {
 
 
 function completeRide(rideId){
-    console.log(rideId)
     fetch('/ride/completeRide', {
         method: 'POST',
         headers: {
@@ -558,7 +547,6 @@ function completeRide(rideId){
         }
         return response.json();
     }).then(data => {
-        console.log(data);
         closeModalForComplete();
         rideDetails.classList.remove('flex');
         rideDetails.classList.add('hidden');

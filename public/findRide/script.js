@@ -47,7 +47,6 @@ function connectToSocketAndFetchRides() {
         });
 
         socket.on('rides', (rides) => {
-            console.log("I run")
             updateRidesUI(rides);
         });
 
@@ -368,7 +367,6 @@ function showError(message) {
 
     const errorDiv = document.getElementById("readOnlyerror");
     errorDiv.textContent = message;
-    console.log(errorDiv);
     errorDiv.classList.remove("opacity-0", "pointer-events-none"); 
     errorDiv.classList.add("-translate-y-1", "opacity-100"); 
 

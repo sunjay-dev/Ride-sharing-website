@@ -23,7 +23,6 @@ function getMessages() {
         }
         return response.json();
     }).then(data => {
-        console.log(data);
         const inbox = document.getElementById('inbox');
         if (data.messages.length === 0) {
             inbox.innerHTML = `<div class="flex flex-col min-h-screen">
