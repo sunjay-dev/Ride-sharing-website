@@ -43,7 +43,7 @@ This is a ride-sharing platform designed to help MUET students conveniently find
 ## 🔧 Installation
 1. Clone the repository:
    ```bash
-   https://github.com/sunjay-dev/Ride-sharing-website
+   git clone https://github.com/sunjay-dev/Ride-sharing-website
    cd Ride-sharing-website
    ```
 2. Install dependencies:
