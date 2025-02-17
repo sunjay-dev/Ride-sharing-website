@@ -14,6 +14,23 @@ This is a ride-sharing platform designed to help MUET students conveniently find
 - **Forgot Password**: Users can reset passwords via email link.
 
 ## 🛠 Tech Stack
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) 
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) 
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) 
+![EJS](https://img.shields.io/badge/ejs-%23B4CA65.svg?style=for-the-badge&logo=ejs&logoColor=black) 
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) 
+![Socket.io](https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101) 
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) 
+![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white) 
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) 
+![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white) 
+![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render&logoColor=white) 
+![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white) 
+![GitLab](https://img.shields.io/badge/gitlab-%23181717.svg?style=for-the-badge&logo=gitlab&logoColor=white) 
+![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white) 
+![Canva](https://img.shields.io/badge/Canva-%2300C4CC.svg?style=for-the-badge&logo=Canva&logoColor=white)
+
+
 - **Frontend**: EJS (Embedded JavaScript Templates) + Tailwind CSS
 - **Backend**: Node.js + Express.js
 - **Database**: MongoDB (via Mongoose)
@@ -26,18 +43,16 @@ This is a ride-sharing platform designed to help MUET students conveniently find
 ## 🔧 Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repo.git
-   cd your-project
+   https://github.com/sunjay-dev/Ride-sharing-website
+   cd Ride-sharing-website
    ```
 2. Install dependencies:
    ```bash
-   
    npm install
    ```
 3. Set up environment variables in a `.env` file (see below).
 4. Run the server:
    ```bash
-   
    npm start
    ```
 The app will be running at `http://localhost:3000`
