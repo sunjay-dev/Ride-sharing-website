@@ -9,7 +9,7 @@ router.get('/', restrictToLoginedUser, (req, res) => {
 });
 router.get("/reset-password/:token", restrictToCorrectResetLink, (req, res) => {
     const { token } = req.params;
-    res.render("reset-password", { token });
+    res.render("reset-password", { token, email:req.user.email });
 });
 
 router.get('/login', restrictToLoginedUser, (req, res) => {

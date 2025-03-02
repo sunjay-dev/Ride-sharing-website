@@ -59,8 +59,7 @@ async function restrictToCorrectResetLink(req, res, next) {
             return res.status(404).redirect('/404')
         }
 
-        // Attach user to request object
-        req.user = user;
+        req.user = { email: user.email };
         next(); // Proceed to the next middleware
     } catch (error) {
        return res.status(404).redirect('/404')
