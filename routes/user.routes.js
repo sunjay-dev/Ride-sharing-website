@@ -2,10 +2,14 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/user.controller');
 const { upload } = require('../utils/multer.utils.js');
-const { restrictToUserlogin, restrictToLoginedUser } = require('../middlewares/auth.middleware.js');
+const { restrictToUserlogin, restrictToLoginedUser, restrictToCorrectResetLink } = require('../middlewares/auth.middleware.js');
 
 router.get('/', restrictToLoginedUser, (req, res) => {
     res.render('index.ejs');
+});
+router.get("/reset-password/:token", restrictToCorrectResetLink, (req, res) => {
+    const { token } = req.params;
+    res.render("reset-password", { token });
 });
 
 router.get('/login', restrictToLoginedUser, (req, res) => {
@@ -16,6 +20,10 @@ router.get(['/register', '/signup'], restrictToLoginedUser, (req, res) => {
     res.render('register.ejs',{
         error: null
     });
+});
+
+router.get('/forget-password', restrictToLoginedUser, (req, res) => {
+    res.render('forget-password.ejs');
 });
 
 router.get('/home', restrictToUserlogin, (req, res) => {
@@ -45,8 +53,12 @@ router.post('/homePage', restrictToUserlogin,userController.homePageDetails);
 
 router.post('/inbox', restrictToUserlogin,userController.sendAllMessages);
 
+router.post('/forget-password', userController.forgetPassword);
+
 router.post('/profile', restrictToUserlogin, userController.showProfile);
 
 router.post('/getUserRideStats', restrictToUserlogin, userController.getUserRideStats);
+
+router.post('/resetPassword', userController.resetPassword);
 
 module.exports = router;

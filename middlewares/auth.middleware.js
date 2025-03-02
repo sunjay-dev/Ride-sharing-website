@@ -1,29 +1,33 @@
 const { getUser } = require('../services/auth.services.js');
+const jwt = require('jsonwebtoken');
+const userModel = require('../models/user.models.js');
+const path = require('path');
+require('dotenv').config();
 
-async function restrictToUserlogin(req,res,next) {
+async function restrictToUserlogin(req, res, next) {
     const token = req.cookies.token;
 
-    if(!token) return res.redirect('/login');
+    if (!token) return res.redirect('/login');
 
     const user = getUser(token);
-    if(!user) return res.redirect('/login');
+    if (!user) return res.redirect('/login');
 
-    req.user=user;
+    req.user = user;
     next();
 }
 
-async function restrictToLoginedUser(req,res,next) {
+async function restrictToLoginedUser(req, res, next) {
     const token = req.cookies.token;
-    if(!token) next();
+    if (!token) next();
     const user = getUser(token);
-    if(user)
-    return res.redirect('/home');
+    if (user)
+        return res.redirect('/home');
 }
 // async function restrictToGuests(req,res,next) {
-    
+
 //     if(req.cookies.token)
 //     return res.redirect('/');
-    
+
 //     next();
 // }
 
@@ -32,9 +36,35 @@ async function restrictToLoginedUser(req,res,next) {
 //     if(!req.cookies.token){
 //         return res.render("nonLogincomplaints.ejs")
 //     }
-    
+
 //     next();
 // }
 
+async function restrictToCorrectResetLink(req, res, next) {
+    const { token } = req.params; // Extract token
 
-module.exports = {restrictToUserlogin, restrictToLoginedUser};
+    if (!token || token.split(".").length !== 3) {
+        return res.status(404).redirect('/404')
+    }
+    try {
+        
+        // Verify token
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        if (!decoded.userId) {
+            return res.status(404).redirect('/404')
+        }
+        
+        const user = await userModel.findOne({_id: decoded.userId, resetToken: token, resetTokenExpiry: { $gt: Date.now() } });
+        if (!user) {
+            return res.status(404).redirect('/404')
+        }
+
+        // Attach user to request object
+        req.user = user;
+        next(); // Proceed to the next middleware
+    } catch (error) {
+       return res.status(404).redirect('/404')
+    }
+}
+
+module.exports = { restrictToUserlogin, restrictToLoginedUser, restrictToCorrectResetLink };

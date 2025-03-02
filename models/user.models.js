@@ -38,19 +38,28 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  resetToken: {
+    type: String
+  },
+  resetTokenExpiry: {
+    type: Date
+  },
   messages: {
     type: [{
-      message: 
-      { type: String, 
-        required: true 
+      message:
+      {
+        type: String,
+        required: true
       },
-      read: 
-      { type: Boolean, 
-        default: false 
+      read:
+      {
+        type: Boolean,
+        default: false
       },
-      createdAt: 
-      { type: Date, 
-        default: Date.now 
+      createdAt:
+      {
+        type: Date,
+        default: Date.now
       }
     }],
     default: []

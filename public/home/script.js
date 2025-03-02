@@ -60,7 +60,13 @@ function fetchTwoAvailableRides() {
         }
         return response.json();
     }).then(data => {
+        console.log(data)
         availableRideContainer.innerHTML = '';
+        if(data.length === 0){
+            availableRideContainer.innerHTML = `<div id="noCurrentRideDiv" class="bg-[#6d74fc] opacity-90 rounded-xl mt-2 py-4">
+            <p class="text-center font-lg text-white">No Suggestion available right now.</p>
+        </div>`
+        }
         data.forEach(ride => {
             availableRideContainer.innerHTML += manageAvailableTemplete(ride);
         });
