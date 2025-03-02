@@ -5,6 +5,7 @@ const { uploadImageToCloudinary } = require('../utils/cloudinary.utils.js');
 const { setUser, getUser } = require('../services/auth.services.js');
 const { sendemail } = require('../services/emailsend.js');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 module.exports.registerUser = async (req, res, next) => {
 
