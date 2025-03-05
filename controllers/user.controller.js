@@ -136,7 +136,7 @@ module.exports.sendAllMessages = async (req, res, next) => {
 
 module.exports.forgetPassword = async (req, res, next) => {
     const { email } = req.body;
-    try {
+    try { 
         const user = await userModel.findOne({ email: email.toLowerCase() });
 
         if (!user) return res.status(404).json({

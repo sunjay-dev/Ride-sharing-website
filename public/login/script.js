@@ -22,7 +22,7 @@ function closeErrorPage() {
 function loginFn() {
     const email = document.getElementById('email-address').value;
     const password = document.getElementById('password').value;
-    if(email === '' || password === '') {
+    if (email === '' || password === '') {
         document.querySelector("div[role='alert']").classList.remove('hidden');
         document.querySelector("div[role='alert'] span").innerHTML = 'Please fill in all fields.';
         return;
@@ -51,11 +51,24 @@ function loginFn() {
             document.querySelector("div[role='alert']").classList.remove('hidden');
             document.querySelector("div[role='alert'] span").innerHTML = error.message;
         });
-        document.getElementById('email-address').value = '';
-        document.getElementById('password').value = '';
+    document.getElementById('email-address').value = '';
+    document.getElementById('password').value = '';
 }
 
 document.querySelector('button[type="submit"]').addEventListener('click', (e) => {
-    e.preventDefault();
-    loginFn();
+    const email = document.getElementById('email-address');
+    if (email.checkValidity()) {
+        e.preventDefault();
+        loginFn();
+    }
+    else{
+        email.reportValidity();
+    }
+});
+
+document.getElementById('autofill-button').addEventListener('click', () => {
+    let email = document.getElementById('email-address');
+    if (!email.value.includes('@students.muet.edu.pk')) {
+        email.value += '@students.muet.edu.pk';
+    }
 });

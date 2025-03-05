@@ -1,7 +1,6 @@
 const { getUser } = require('../services/auth.services.js');
 const jwt = require('jsonwebtoken');
 const userModel = require('../models/user.models.js');
-const path = require('path');
 require('dotenv').config();
 
 async function restrictToUserlogin(req, res, next) {

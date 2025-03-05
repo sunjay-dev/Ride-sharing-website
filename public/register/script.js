@@ -157,3 +157,11 @@ function autocomplete(inputElement) {
 }
 
 autocomplete(document.getElementById("country-input"));
+
+
+document.getElementById('autofill-button').addEventListener('click', () => {
+    let email = document.getElementById('email-address');
+    if(!email.value.includes('@students.muet.edu.pk')) {
+        email.value += '@students.muet.edu.pk';
+    }
+});

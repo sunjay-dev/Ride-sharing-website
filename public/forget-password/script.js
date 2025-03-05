@@ -45,3 +45,10 @@ const form = document.querySelector('form');
             window.history.back();
         }
     }
+
+    document.getElementById('autofill-button').addEventListener('click', () => {
+        let email = document.getElementById('email-address');
+        if(!email.value.includes('@students.muet.edu.pk')) {
+            email.value += '@students.muet.edu.pk';
+        }
+    });
