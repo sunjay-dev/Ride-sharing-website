@@ -5,6 +5,7 @@ const { uploadImageToCloudinary } = require('../utils/cloudinary.utils.js');
 const { setUser, getUser } = require('../services/auth.services.js');
 const { sendemail } = require('../services/emailsend.js');
 const jwt = require('jsonwebtoken');
+const passport = require("../config/MSauth.services.js");
 require('dotenv').config();
 
 module.exports.registerUser = async (req, res, next) => {
@@ -168,7 +169,8 @@ module.exports.forgetPassword = async (req, res, next) => {
         });
     }
 }
-    module.exports.resetPassword = async (req, res, next) => {
+
+module.exports.resetPassword = async (req, res, next) => {
 
         const { token, password } = req.body;
         if (!token || !password) return res.status(400).json({
@@ -203,7 +205,7 @@ module.exports.forgetPassword = async (req, res, next) => {
     }
 
 
-    module.exports.getUserRideStats = async (req, res, next) => {
+module.exports.getUserRideStats = async (req, res, next) => {
         const userId = req.user.id;
         try {
             const [ridesCreated, ridesCompleted, ridesCanceled] = await Promise.all([
@@ -218,3 +220,20 @@ module.exports.forgetPassword = async (req, res, next) => {
             return { ridesCreated: 0, ridesCompleted: 0, ridesCanceled: 0 };
         }
     };
+
+module.exports.microsoftAuthCallback = async (req, res, next) => {
+    passport.authenticate("azure_ad_oauth2", (err, user, info) => {
+        if (err) {
+            console.error("Auth error:", err);
+            return res.redirect(`/login?error=${encodeURIComponent("Internal server error")}`);
+        }
+        if (!user) {
+            let errorMessage = "Unauthorized";
+            if (info && info.message) errorMessage = info.message;
+            return res.redirect(`/login?error=${encodeURIComponent(errorMessage)}`);
+        }
+
+        res.cookie("token", setUser(user._id)); 
+        res.redirect("/home");
+    })(req, res, next);
+}

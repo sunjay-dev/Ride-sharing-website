@@ -17,6 +17,10 @@ showPassword.addEventListener('click', () => {
 
 function closeErrorPage() {
     document.querySelector("div[role='alert']").className += " hidden";
+    
+    const url = new URL(window.location);
+    url.searchParams.delete("error"); // Remove 'error' param
+    window.history.replaceState({}, document.title, url.pathname);
 }
 
 function loginFn() {
@@ -70,5 +74,14 @@ document.getElementById('autofill-button').addEventListener('click', () => {
     let email = document.getElementById('email-address');
     if (!email.value.includes('@students.muet.edu.pk')) {
         email.value += '@students.muet.edu.pk';
+    }
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const error = new URLSearchParams(window.location.search).get('error');
+    if (error) {
+        document.querySelector("div[role='alert']").classList.remove('hidden');
+        document.querySelector("div[role='alert'] span").innerHTML = error;
     }
 });
