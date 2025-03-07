@@ -12,6 +12,7 @@ This is a ride-sharing platform designed to help MUET students conveniently find
 - **Notifications**: Alerts for ride cancellations or when a passenger leaves.
 - **Real-time Updates**: Live seat availability and ride notifications using WebSockets.
 - **Forgot Password**: Users can reset passwords via email link.
+- **Microsoft Login**: Users can Login and Sign Up using their Microsoft university email.
 
 ## 🛠 Tech Stack
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) 
@@ -33,7 +34,7 @@ This is a ride-sharing platform designed to help MUET students conveniently find
 - **Frontend**: EJS (Embedded JavaScript Templates) + Tailwind CSS
 - **Backend**: Node.js + Express.js
 - **Database**: MongoDB (via Mongoose)
-- **Authentication**: JWT (JSON Web Token)
+- **Authentication**: JWT (JSON Web Token) + Microsoft OAuth
 - **File Storage**: Cloudinary
 - **Email Service**: Resend
 - **Real-time Updates**: WebSockets
@@ -68,6 +69,8 @@ PORT=3000
 senderEmail=EMAIL_ADDRESS
 CLIENT_URL=http://localhost:3000
 RESEND_EMAIL_API_KEY=RESEND_EMAIL_API_KEY
+MICROSOFT_CLIENT_ID=MICROSOFT_CLIENT_ID
+MICROSOFT_CLIENT_SECRET=MICROSOFT_CLIENT_SECRET
 ```
 
 
@@ -79,6 +82,15 @@ RESEND_EMAIL_API_KEY=RESEND_EMAIL_API_KEY
 ## 🚀 What's Next?
 - Develop a mobile app for iOS & Android.
 - Add a feature for drivers to approve passengers before joining a ride.
+
+## 🏆 Achievements
+
+- 🎉 Hackathon: Hack for Humanity🥇 
+- Public Voting Winner🏅
+- Ranked 20th among all participants📜
+
+## ![Certificate Awarded](https://github.com/user-attachments/assets/bd63539d-524f-4767-afac-98fa8d1e897f)
+
 
 ## 🤝 Contributors
 - **Varoon Kumar** - UI Designer
