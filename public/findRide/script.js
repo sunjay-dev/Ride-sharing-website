@@ -291,8 +291,8 @@ function confirmRide(rideId) {
     }).then(response => {
         if (!response.ok) {
             return response.json().then(errorData => {
-                console.log(errorData.error)
-                throw new Error(errorData.error || 'Something went wrong');
+                console.log(errorData.message)
+                throw new Error(errorData.message || 'Something went wrong');
             });
         }
         return response.json();

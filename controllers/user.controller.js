@@ -1,90 +1,84 @@
 const userModel = require('../models/user.models.js');
 const rideModel = require('../models/ride.models.js');
-const { isValidEmail } = require('../utils/email.utils.js');
 const { uploadImageToCloudinary } = require('../utils/cloudinary.utils.js');
 const { setUser, getUser } = require('../services/auth.services.js');
 const { sendemail } = require('../services/emailsend.js');
 const jwt = require('jsonwebtoken');
 const passport = require("../config/MSauth.services.js");
-require('dotenv').config();
+const { registerSchema } = require('../schemas/userSchema.js')
+const { ZodError } = require("zod");
 
 module.exports.registerUser = async (req, res, next) => {
+    try {
+        const parsedData = registerSchema.parse(req.body);
 
-    const { firstName, lastName, email, password, phone, department } = req.body;
+        if (!req.file) {
+            return res.render("register.ejs", { error: "Image is required" });
+        }
 
-    if (!firstName || !lastName || !email || !password || !phone || !department) {
-        return res.render("register.ejs", {
-            error: "Please provide all Information"
+        const isUserAlready = await userModel.findOne({ email: parsedData.email });
+        if (isUserAlready) {
+            return res.render("register.ejs", { error: "User already exists" });
+        }
+
+        const [hashedPassword, secure_url] = await Promise.all([
+            userModel.hashPassword(parsedData.password),
+            uploadImageToCloudinary(req.file.buffer),
+        ]);
+
+        const newUser = await userModel.create({
+            ...parsedData,
+            password: hashedPassword,
+            img: secure_url,
         });
+
+        const token = setUser(newUser._id);
+        res.cookie("token", token);
+
+        return res.redirect("/home");
+    } catch (error) {
+        if (error instanceof ZodError) {
+            const isDefaultError = error.issues[0].message.startsWith("Invalid input");
+            const message = isDefaultError ? `${error.issues[0].path}: ${error.issues[0].message}` : error.issues[0].message;
+            res.status(400).json({ message });
+            return;
+        }
+        return next(err);
     }
-
-    if (!req.file) {
-        return res.render("register.ejs", {
-            error: "Image is required"
-        });
-    }
-
-    if (!isValidEmail(email)) {
-        return res.render("register.ejs", {
-            error: "Email must be a valid @students.muet.edu.pk email"
-        });
-    }
-
-    const isUserAlready = await userModel.findOne({ email });
-
-    if (isUserAlready) {
-        return res.render("register.ejs", {
-            error: "User already exist"
-        });
-    }
-
-    const [hashedPassword, secure_url] = await Promise.all([
-        userModel.hashPassword(password),
-        uploadImageToCloudinary(req.file.buffer)
-    ]);
-
-    const newUser = await userModel.create({
-        firstName,
-        lastName,
-        email,
-        department,
-        password: hashedPassword,
-        phone,
-        img: secure_url
-    });
-
-    const token = setUser(newUser._id);
-
-    res.cookie('token', token);
-    return res.redirect('/home');
-}
+};
 
 
 module.exports.loginUser = async (req, res, next) => {
-    const { email: rawEmail, password } = req.body;
-    email = rawEmail.toLowerCase();
-    const user = await userModel.findOne({ email }).select('+password');
+    const { email, password } = req.body;
 
-    if (!user) {
-        return res.status(400).json({
-            error: "Invalid email or password"
+    try {
+        const user = await userModel.findOne({ email }).select('+password');
+
+        if (!user) {
+            return res.status(400).json({
+                error: "Invalid email or password"
+            })
+        }
+
+        const isMatch = await user.comparePassword(password);
+
+        if (!isMatch) {
+            return res.status(400).json({
+                error: "Invalid email or password"
+            })
+        }
+
+        const token = setUser(user._id);
+
+        res.cookie('token', token);
+        return res.status(200).json({
+            message: "Login Success"
         })
+
+    } catch (error) {
+        console.error("Error while login:", error);
+        res.status(500).json({ message: "Something went wrong. Please try again later." });
     }
-
-    const isMatch = await user.comparePassword(password);
-
-    if (!isMatch) {
-        return res.status(400).json({
-            error: "Invalid email or password"
-        })
-    }
-
-    const token = setUser(user._id);
-
-    res.cookie('token', token);
-    return res.status(200).json({
-        message: "Login Success"
-    })
 }
 
 module.exports.logout = async (req, res, next) => {
@@ -93,51 +87,66 @@ module.exports.logout = async (req, res, next) => {
 }
 
 module.exports.showProfile = async (req, res, next) => {
-    const user = await userModel.findOne({ _id: req.user.id });
-    if (!user) return res.status(201).json({
-        message: "No user found"
-    })
-    return res.status(200).json({
-        user
-    })
+    try {
+        const user = await userModel.findOne({ _id: req.user.id });
+        if (!user) return res.status(201).json({
+            message: "No user found"
+        })
+        return res.status(200).json({
+            user
+        })
+    } catch (error) {
+        console.error("Error while showing user profile:", error);
+        res.status(500).json({ message: "Something went wrong. Please try again later." });
+    }
 }
 
 module.exports.homePageDetails = async (req, res, next) => {
-    const user = await userModel.findOne({ _id: req.user.id });
+    try {
+        const user = await userModel.findOne({ _id: req.user.id });
 
-    if (!user) return res.status(201).json({
-        message: "No user found"
-    });
+        if (!user) return res.status(201).json({
+            message: "No user found"
+        });
 
-    const unreadMessagesCount = user.countUnreadMessages();
+        const unreadMessagesCount = user.countUnreadMessages();
 
-    return res.status(200).json({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        img: user.img,
-        unreadMessagesCount
-    });
+        return res.status(200).json({
+            firstName: user.firstName,
+            lastName: user.lastName,
+            img: user.img,
+            unreadMessagesCount
+        });
+    } catch (error) {
+        console.error("Error while fetching home page details:", error);
+        res.status(500).json({ message: "Something went wrong. Please try again later." });
+    }
 }
 
 module.exports.sendAllMessages = async (req, res, next) => {
-    const user = await userModel.findOne({ _id: req.user.id });
+    try {
+        const user = await userModel.findOne({ _id: req.user.id });
 
-    if (!user) return res.status(201).json({
-        message: "No user found"
-    });
+        if (!user) return res.status(201).json({
+            message: "No user found"
+        });
 
-    const messages = user.messages;
+        const messages = user.messages;
 
-    res.status(200).json({
-        messages
-    });
+        res.status(200).json({
+            messages
+        });
 
-    await user.markAllMessagesAsRead();
+        await user.markAllMessagesAsRead();
+    } catch (error) {
+        console.error("Error while sending all messages:", error);
+        res.status(500).json({ message: "Something went wrong. Please try again later." });
+    }
 }
 
 module.exports.forgetPassword = async (req, res, next) => {
     const { email } = req.body;
-    try { 
+    try {
         const user = await userModel.findOne({ email: email.toLowerCase() });
 
         if (!user) return res.status(404).json({
@@ -153,7 +162,7 @@ module.exports.forgetPassword = async (req, res, next) => {
         // Create reset link
         const resetLink = `${process.env.CLIENT_URL}/reset-password/${token}`;
 
-        sendemail(resetLink, email, user.firstName, user.lastName);
+        await sendemail(resetLink, email, user.firstName, user.lastName);
 
         user.resetToken = token;
         user.resetTokenExpiry = Date.now() + 3600000;
@@ -165,61 +174,61 @@ module.exports.forgetPassword = async (req, res, next) => {
     } catch (error) {
         return res.status(404).json({
             message: "Error sending email",
-            error : error
+            error: error
         });
     }
 }
 
 module.exports.resetPassword = async (req, res, next) => {
 
-        const { token, password } = req.body;
-        if (!token || !password) return res.status(400).json({
-            message: "Token and password are required"
+    const { token, password } = req.body;
+    if (!token || !password) return res.status(400).json({
+        message: "Token and password are required"
+    });
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await userModel.findOne({ _id: decoded.userId });
+
+        if (!user) return res.status(404).json({
+            message: "No User Found."
         });
 
-        try {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            const user = await userModel.findOne({ _id: decoded.userId });
+        const hashedPassword = await userModel.hashPassword(password);
+        user.password = hashedPassword;
+        user.resetToken = undefined;
+        // user.resetTokenExpiry = undefined
+        await user.save();
 
-            if (!user) return res.status(404).json({
-                message: "No User Found."
-            });
+        const Token_cookie = setUser(user._id);
+        res.cookie('token', Token_cookie);
 
-            const hashedPassword = await userModel.hashPassword(password);
-            user.password = hashedPassword;
-            user.resetToken = undefined;
-            user.resetTokenExpiry = undefined
-            await user.save();
-
-            const Token_cookie = setUser(user._id);
-            res.cookie('token', Token_cookie);
-
-            return res.status(200).json({
-                message: "Password reset successfully"
-            });
-        } catch (error) {
-            return res.status(400).json({
-                message: "Invalid or expired token"
-            });
-        }
+        return res.status(200).json({
+            message: "Password reset successfully"
+        });
+    } catch (error) {
+        return res.status(400).json({
+            message: "Invalid or expired token"
+        });
     }
+}
 
 
 module.exports.getUserRideStats = async (req, res, next) => {
-        const userId = req.user.id;
-        try {
-            const [ridesCreated, ridesCompleted, ridesCanceled] = await Promise.all([
-                rideModel.countDocuments({ driver: userId }),
-                rideModel.countDocuments({ driver: userId, status: "completed" }),
-                rideModel.countDocuments({ driver: userId, status: "canceled" })
-            ]);
+    const userId = req.user.id;
+    try {
+        const [ridesCreated, ridesCompleted, ridesCanceled] = await Promise.all([
+            rideModel.countDocuments({ driver: userId }),
+            rideModel.countDocuments({ driver: userId, status: "completed" }),
+            rideModel.countDocuments({ driver: userId, status: "canceled" })
+        ]);
 
-            res.status(200).json({ ridesCreated, ridesCompleted, ridesCanceled });
-        } catch (error) {
-            console.error("Error fetching ride stats:", error);
-            return { ridesCreated: 0, ridesCompleted: 0, ridesCanceled: 0 };
-        }
-    };
+        res.status(200).json({ ridesCreated, ridesCompleted, ridesCanceled });
+    } catch (error) {
+        console.error("Error fetching ride stats:", error);
+        return { ridesCreated: 0, ridesCompleted: 0, ridesCanceled: 0 };
+    }
+};
 
 module.exports.microsoftAuthCallback = async (req, res, next) => {
     passport.authenticate("azure_ad_oauth2", (err, user, info) => {
@@ -233,7 +242,7 @@ module.exports.microsoftAuthCallback = async (req, res, next) => {
             return res.redirect(`/login?error=${encodeURIComponent(errorMessage)}`);
         }
 
-        res.cookie("token", setUser(user._id)); 
+        res.cookie("token", setUser(user._id));
         res.redirect("/home");
     })(req, res, next);
 }

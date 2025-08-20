@@ -1,8 +1,6 @@
-require('dotenv').config();
 const { Resend } = require('resend');
 
-
-function sendemail(Url, email, firstName, lastName) {
+async function sendemail(Url, email, firstName, lastName) {
 
   const resend = new Resend(process.env.RESEND_EMAIL_API_KEY);
   const emailTemplate = `
@@ -54,7 +52,7 @@ function sendemail(Url, email, firstName, lastName) {
 </html>
 `;
 
-  resend.emails.send({
+  await resend.emails.send({
     from: process.env.senderEmail,
     to: email,
     subject: 'Password Reset Request',

@@ -6,17 +6,12 @@ const { getIoInstance } = require('../socket');
 
 module.exports.createRide = async (req, res, next) => {
     const { from, to, datetime, fare, seats, vehicleDetails } = req.body;
-
-    if (!from || !to || !datetime || !fare || !seats || !vehicleDetails) {
-        return res.status(400).json({
-            error: "All fields are required"
-        })
-    }
+    
     try {
         const ispending = await rideModel.findOne({ driver: req.user.id, status: { $in: ["pending", "progress"] } });
         if (ispending) {
             return res.status(400).json({
-                error: "You have already created a ride that is in progress."
+                message: "You have already created a ride that is in progress."
             });
         }
 
@@ -27,7 +22,7 @@ module.exports.createRide = async (req, res, next) => {
 
         if (isPassengerInActiveRide) {
             return res.status(400).json({
-                error: "You are currently a passenger in another active ride."
+                message: "You are currently a passenger in another active ride."
             });
         }
 
@@ -36,7 +31,7 @@ module.exports.createRide = async (req, res, next) => {
 
         if (selectedTime <= currentTime) {
             return res.status(400).json({
-                error: "The selected time must be in the future"
+                message: "The selected time must be in the future"
             });
         }
 
@@ -59,7 +54,7 @@ module.exports.createRide = async (req, res, next) => {
     } catch (error) {
         console.error("Error creating Ride:", error);
         return res.status(500).json({
-            error: "An error occurred while creating your ride. Please try again later."
+            message: "An error occurred while creating your ride. Please try again later."
         });
     }
 }
@@ -123,26 +118,26 @@ module.exports.getRidebyId = async (id) => {
 }
 
 module.exports.joinRide = async (req, res, next) => {
-    try {
-        const { rideId } = req.body;
-        const userId = req.user.id;
+    const { rideId } = req.body;
+    const userId = req.user.id;
 
+    try {
         const ride = await rideModel.findOne({ _id: rideId, status: "pending" });
 
         if (!ride) {
-            return res.status(404).json({ error: 'Ride not found' });
+            return res.status(404).json({ message: 'Ride not found' });
         }
 
         if (ride.availableSeats <= 0 || isNaN(ride.availableSeats)) {
-            return res.status(400).json({ error: 'No seats available' });
+            return res.status(400).json({ message: 'No seats available' });
         }
 
         if (ride.driver.toString() === userId) {
-            return res.status(400).json({ error: 'You cannot join your own ride' });
+            return res.status(400).json({ message: 'You cannot join your own ride' });
         }
 
         if (ride.passengers.includes(userId)) {
-            return res.status(400).json({ error: 'You already joined the ride' });
+            return res.status(400).json({ message: 'You already joined the ride' });
         }
         
         const activeRide = await rideModel.findOne({ 
@@ -153,7 +148,7 @@ module.exports.joinRide = async (req, res, next) => {
         });
 
         if (activeRide) {
-            return res.status(400).json({ error: 'You cannot join more than one active ride' });
+            return res.status(400).json({ message: 'You cannot join more than one active ride' });
         }
 
         const updatedRide = await rideModel.findOneAndUpdate(
@@ -163,7 +158,7 @@ module.exports.joinRide = async (req, res, next) => {
         );
 
         if (!updatedRide) {
-            return res.status(400).json({ error: 'Failed to join ride. Please try again.' });
+            return res.status(400).json({ message: 'Failed to join ride. Please try again.' });
         }
 
         const io = getIoInstance();
@@ -173,11 +168,10 @@ module.exports.joinRide = async (req, res, next) => {
             message: "Ride joined successfully!"
         });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'An error occurred while joining the ride' });
+        console.error("error while joining ride",error);
+        res.status(500).json({ message: 'An error occurred while joining the ride' });
     }
 };
-
 
 module.exports.getAsaDriverRide = async (req, res, next) => {
 
@@ -298,6 +292,7 @@ module.exports.getCurrentRide = async (req, res, next) => {
         });
     }
 }
+
 module.exports.cancelBooking = async (req, res, next) => {
     try {
         const { rideId } = req.body;
@@ -382,13 +377,9 @@ module.exports.cancelRide = async (req, res, next) => {
 }
 
 module.exports.removePassenger = async (req, res, next) => {
+    const { rideId, passengerId } = req.body;
+    
     try {
-        const { rideId, passengerId } = req.body;
-        if (!rideId || !passengerId) {
-            return res.status(400).json({ error: 'Both RideId and PassengerId are required' });
-        }
-        const userId = req.user.id;
-
         const ride = await rideModel.findOne({ _id: rideId, status: "pending" });
         if (!ride) {
             return res.status(404).json({ error: 'Ride not found' });
@@ -448,9 +439,9 @@ module.exports.completeRide = async (req, res, next) => {
 }
 
 cron.schedule('0 * * * * *', async () => {
+    const nowUtc = new Date(); // Current UTC time
+    
     try {
-        const nowUtc = new Date(); // Current UTC time
-
         await rideModel.updateMany(
             { status: 'pending', datetime: { $lte: nowUtc } },
             { $set: { status: 'progress' } }

@@ -109,7 +109,7 @@ function manageAvailableTemplete(ride) {
 }
 function manageCurrentTemplete(ride, type) {
 
-    return `<div class="bg-white mt-2 rounded-lg shadow px-4 py-1 flex items-center justify-between cursor-pointer w-full" onclick="getCurrentRideDetails('${ride._id}', '${type}')">
+    return `<div class="bg-white z-10 mt-2 rounded-lg shadow px-4 py-1 flex items-center justify-between cursor-pointer w-full" onclick="getCurrentRideDetails('${ride._id}', '${type}')">
                 <div class="flex items-center">
                     <div class="flex flex-col items-center space-y-1">
                         <div class="w-6 h-6 flex items-center justify-center rounded-full bg-[#6d74fc] text-white">
@@ -168,7 +168,7 @@ function manageRideDetailsTempleteForPassenger(ride) {
     }
     return `
         <div
-        class="bg-white w-[calc(100dvw-2rem)] sm:w-[80vw] sm:h-[90vh] sm:flex rounded-lg shadow-xl relative overflow-hidden">
+        class="bg-white w-[calc(100dvw-2rem)] z-10 sm:w-[80vw] sm:h-[90vh] sm:flex rounded-lg shadow-xl relative overflow-hidden">
         <!-- Map Section -->
         <div class="relative sm:w-1/2 sm:h-full sm:rounded-l-lg flex-shrink-0">
             <!-- Close Button -->

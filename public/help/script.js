@@ -13,7 +13,7 @@ document.querySelector('button[type="submit"]').addEventListener('click', (e) =>
       fetch('/help', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json' // Set the content type to JSON
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(dataToSend)
       })
@@ -21,7 +21,7 @@ document.querySelector('button[type="submit"]').addEventListener('click', (e) =>
 
           if (!response.ok) {
             return response.json().then(errorData => {
-              throw new Error(errorData.error || 'Something went wrong');
+              throw new Error(errorData.message || 'Something went wrong');
             });
         }
         return response.json();

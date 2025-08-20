@@ -83,16 +83,9 @@ function handleVehicleSelection(select) {
   }
 }
 
-
-
 document.addEventListener('DOMContentLoaded', function () {
   setDateTime();
-  fetch('/vehicle/getVehicles', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-  })
+  fetch('/vehicle/getVehicles')
     .then(response => {
       if (!response.ok) {
         throw new Error('Network response was not ok ' + response.statusText);
@@ -100,12 +93,12 @@ document.addEventListener('DOMContentLoaded', function () {
       return response.json();
     })
     .then(data => {
-      for (let i = 0; i < data.vehicles.length; i++) {
+      for (let i = 0; i < data.length; i++) {
         let option = document.createElement("option");
-        option.value = data.vehicles[i]._id;
-        option.textContent = data.vehicles[i].model + " - " + data.vehicles[i].numberPlate;
+        option.value = data[i]._id;
+        option.textContent = data[i].model + " - " + data[i].numberPlate;
 
-        option.setAttribute("data-vehicletype", data.vehicles[i].vehicleType);
+        option.setAttribute("data-vehicletype", data[i].vehicleType);
 
         vehicleOfferRide.appendChild(option);
       }
@@ -155,16 +148,16 @@ document.getElementById('OfferRideSubmitBtn').addEventListener('click', (e) => {
         from: fromFindRideValue.value,
         to: toFindRideValue.value,
         datetime: utcDateTime,
-        fare: fareOfferRide.value,
-        seats: seatsOfferRide.value,
+        fare: Number(fareOfferRide.value),
+        seats: Number(seatsOfferRide.value),
         vehicleDetails: vehicleOfferRide.value
       })
     }).then(response => {
 
       if (!response.ok) {
         return response.json().then(errorData => {
-          console.log(errorData.error)
-          throw new Error(errorData.error || 'Something went wrong');
+          console.log(errorData.message)
+          throw new Error(errorData.message || 'Something went wrong');
         });
       }
       return response.json();

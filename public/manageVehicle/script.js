@@ -9,11 +9,49 @@ addNewVehicleButton.addEventListener('click', () => {
     addVehicleSection.classList.remove('hidden');
 });
 
-async function addNewVehicle() {
+async function addNewVehicle(e) {
+    e.preventDefault();
     const vehicleType = document.getElementById('vehicleType').value;
     const color = document.getElementById('color').value;
     const numberPlate = document.getElementById('numberPlate').value;
     const model = document.getElementById('model').value;
+    const alertDiv = document.querySelector("div[role='alert']");
+    const alertSpan = document.querySelector("div[role='alert'] span");
+
+    if(!vehicleType.trim() || !color.trim() || !numberPlate.trim() || !model.trim()){
+        alertDiv.classList.remove('hidden');
+        alertSpan.innerHTML = "All fields are required";
+        return;
+    }
+
+    const allowedTypes = ["car", "bike"];
+    if (!allowedTypes.includes(vehicleType.toLowerCase())) {
+        alertDiv.classList.remove('hidden');
+        alertSpan.innerHTML = "Vehicle type must be 'car' or 'motor bike'";
+        return;
+    }
+
+    const numberPlateRegex = /^[A-Z0-9-\s]+$/i;
+    if (!numberPlateRegex.test(numberPlate)) {
+        alertDiv.classList.remove('hidden');
+        alertSpan.innerHTML = "Invalid number plate";
+        return;
+    }
+
+    const colorRegex = /^[a-zA-Z\s-]+$/;
+    if (!colorRegex.test(color)) {
+        alertDiv.classList.remove('hidden');
+        alertSpan.innerHTML = "Invalid color";
+        return;
+    }
+
+    const modelRegex = /^[a-zA-Z0-9\s.-]+$/;
+    if (!modelRegex.test(model)) {
+        alertDiv.classList.remove('hidden');
+        alertSpan.innerHTML = "Invalid model";
+        return;
+    }
+
     await fetch('/vehicle/register', {
         method: 'POST',
         headers: {
@@ -34,7 +72,7 @@ async function addNewVehicle() {
                 });
             }
         })
-        .then(response => {
+        .then(() => {
             window.location.reload();
         })
         .catch(error => {
@@ -46,11 +84,6 @@ async function addNewVehicle() {
     document.getElementById('numberPlate').value = '';
     document.getElementById('model').value = '';
 }
-
-document.querySelector('button[type="submit"]').addEventListener('click', (e) => {
-    e.preventDefault();
-    addNewVehicle();
-});
 
 // Go Back to Vehicle List
 backToListButton.addEventListener('click', () => {
@@ -72,20 +105,16 @@ document.getElementById('backPage').onclick = () => {
 }
 
 document.addEventListener('DOMContentLoaded', async function () {
-    fetch('/vehicle/getVehicles', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-    }).then(response => {
+    fetch('/vehicle/getVehicles')
+    .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
         }
         return response.json();
     }).then(data => {
         vehicleList.innerHTML = "";
-        if (data.vehicles.length > 0) {
-            for (let i = 0; i < data.vehicles.length; i++) {
+        if (data.length > 0) {
+            for (let i = 0; i < data.length; i++) {
                 let li = document.createElement('li');
                 li.className = "flex items-center justify-between border p-4 rounded-lg shadow-sm"
 
@@ -93,18 +122,18 @@ document.addEventListener('DOMContentLoaded', async function () {
 
                 let p1 = document.createElement('p');
                 p1.className = "font-medium text-gray-800 capitalize";
-                p1.innerHTML = data.vehicles[i].model;
+                p1.innerHTML = data[i].model;
 
                 let p2 = document.createElement('p');
                 p2.className = "text-gray-500";
-                p2.innerHTML = `Color: <span class="capitalize">${data.vehicles[i].color}</span><br> Number Plate: <span>${data.vehicles[i].numberPlate}</span>`
+                p2.innerHTML = `Color: <span class="capitalize">${data[i].color}</span><br> Number Plate: <span>${data[i].numberPlate}</span>`
 
 
                 let button = document.createElement('button');
                 button.className = "text-red-500 font-medium hover:underline";
                 button.innerHTML = "Remove";
                 button.onclick = function () {
-                    confirmDelete(data.vehicles[i].numberPlate)
+                    confirmDelete(data[i].numberPlate)
                 };
 
                 div.appendChild(p1);

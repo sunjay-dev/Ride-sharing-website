@@ -1,7 +1,6 @@
 const { getUser } = require('../services/auth.services.js');
 const jwt = require('jsonwebtoken');
 const userModel = require('../models/user.models.js');
-require('dotenv').config();
 
 async function restrictToUserlogin(req, res, next) {
     const token = req.cookies.token;
@@ -52,7 +51,7 @@ async function restrictToCorrectResetLink(req, res, next) {
         if (!decoded.userId) {
             return res.status(404).redirect('/404')
         }
-        
+        //authenticate if link does exist in user record
         const user = await userModel.findOne({_id: decoded.userId, resetToken: token, resetTokenExpiry: { $gt: Date.now() } });
         if (!user) {
             return res.status(404).redirect('/404')
