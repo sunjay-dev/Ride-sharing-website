@@ -40,10 +40,10 @@ module.exports.registerUser = async (req, res, next) => {
         if (error instanceof ZodError) {
             const isDefaultError = error.issues[0].message.startsWith("Invalid input");
             const message = isDefaultError ? `${error.issues[0].path}: ${error.issues[0].message}` : error.issues[0].message;
-            res.status(400).json({ message });
-            return;
+            return res.render("register.ejs", { error: message });
         }
-        return next(err);
+        
+        res.render("register.ejs", { error: "Something went wrong. Please try again later." });
     }
 };
 
