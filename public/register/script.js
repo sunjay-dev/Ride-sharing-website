@@ -3,6 +3,12 @@ const eyeImage = document.getElementById('eyeImage');
 const CloseEyeImage = document.getElementById('CloseEyeImage');
 const password = document.getElementById('password');
 
+document.querySelector('#signup-form').addEventListener('submit', () => {
+    document.getElementById('loader').classList.remove('hidden');
+    document.getElementById('loader').classList.add('flex');
+});
+
+
 showPassword.addEventListener('click', () => {
     if (password.type === 'password') {
         password.type = 'text';
@@ -54,7 +60,6 @@ document.getElementById('next-btn').addEventListener('click', (e) => {
 function closeErrorPage() {
     document.querySelector("div[role='alert']").className += " hidden";
 }
-
 
 const departments = [
     "Civil Engineering",
@@ -157,7 +162,6 @@ function autocomplete(inputElement) {
 }
 
 autocomplete(document.getElementById("country-input"));
-
 
 document.getElementById('autofill-button').addEventListener('click', () => {
     let email = document.getElementById('email-address');

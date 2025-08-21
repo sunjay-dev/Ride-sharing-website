@@ -41,9 +41,6 @@ module.exports.getVehicles = async (req, res, next) => {
 
 module.exports.deleteVehicles = async (req, res, next) => {
     const { numberPlate } = req.body;
-    if (!numberPlate) {
-        return res.status(401).json({ message: "Please provide numberPlate with request." });
-    }
 
     try {
         const vehicle = await vehicleModel.findOne({ user: req.user.id, numberPlate: numberPlate });
@@ -54,7 +51,7 @@ module.exports.deleteVehicles = async (req, res, next) => {
             status: { $in: ["pending", "progress"] }
         });
         if (ride) {
-            return res.status(401).json({ message: "Cannot delete vehicle as it is in use in a current ride." });
+            return res.status(400).json({ message: "Cannot delete vehicle as it is in use in a current ride." });
         }
 
         vehicle.deleted = true;

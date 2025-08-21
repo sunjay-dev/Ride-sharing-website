@@ -45,8 +45,6 @@ async function restrictToCorrectResetLink(req, res, next) {
         return res.status(404).redirect('/404')
     }
     try {
-        
-        // Verify token
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         if (!decoded.userId) {
             return res.status(404).redirect('/404')
@@ -58,8 +56,8 @@ async function restrictToCorrectResetLink(req, res, next) {
         }
 
         req.user = { email: user.email };
-        next(); // Proceed to the next middleware
-    } catch (error) {
+        next(); 
+    } catch {
        return res.status(404).redirect('/404')
     }
 }

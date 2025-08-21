@@ -1,7 +1,7 @@
 const userModel = require('../models/user.models.js');
 const rideModel = require('../models/ride.models.js');
 const { uploadImageToCloudinary } = require('../utils/cloudinary.utils.js');
-const { setUser, getUser } = require('../services/auth.services.js');
+const { setUser } = require('../services/auth.services.js');
 const { sendemail } = require('../services/emailsend.js');
 const jwt = require('jsonwebtoken');
 const passport = require("../config/MSauth.services.js");
@@ -21,7 +21,7 @@ module.exports.registerUser = async (req, res, next) => {
             return res.render("register.ejs", { error: "User already exists" });
         }
 
-        const [hashedPassword, secure_url] = await Promise.all([
+        const [hashedPassword, secureUrl] = await Promise.all([
             userModel.hashPassword(parsedData.password),
             uploadImageToCloudinary(req.file.buffer),
         ]);
@@ -29,7 +29,7 @@ module.exports.registerUser = async (req, res, next) => {
         const newUser = await userModel.create({
             ...parsedData,
             password: hashedPassword,
-            img: secure_url,
+            img: secureUrl,
         });
 
         const token = setUser(newUser._id);
@@ -182,9 +182,6 @@ module.exports.forgetPassword = async (req, res, next) => {
 module.exports.resetPassword = async (req, res, next) => {
 
     const { token, password } = req.body;
-    if (!token || !password) return res.status(400).json({
-        message: "Token and password are required"
-    });
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);

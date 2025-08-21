@@ -6,7 +6,7 @@ const { getIoInstance } = require('../socket');
 
 module.exports.createRide = async (req, res, next) => {
     const { from, to, datetime, fare, seats, vehicleDetails } = req.body;
-    
+
     try {
         const ispending = await rideModel.findOne({ driver: req.user.id, status: { $in: ["pending", "progress"] } });
         if (ispending) {
@@ -139,11 +139,11 @@ module.exports.joinRide = async (req, res, next) => {
         if (ride.passengers.includes(userId)) {
             return res.status(400).json({ message: 'You already joined the ride' });
         }
-        
-        const activeRide = await rideModel.findOne({ 
+
+        const activeRide = await rideModel.findOne({
             $or: [
-            { passengers: userId, status: "pending" },
-            { driver: userId, status: "pending" }
+                { passengers: userId, status: "pending" },
+                { driver: userId, status: "pending" }
             ]
         });
 
@@ -168,7 +168,7 @@ module.exports.joinRide = async (req, res, next) => {
             message: "Ride joined successfully!"
         });
     } catch (error) {
-        console.error("error while joining ride",error);
+        console.error("error while joining ride", error);
         res.status(500).json({ message: 'An error occurred while joining the ride' });
     }
 };
@@ -221,10 +221,6 @@ module.exports.getAsaPassengerRide = async (req, res, next) => {
 
 module.exports.getRideByIdHistory = async (req, res, next) => {
     const { rideId } = req.body;
-    if (!rideId)
-        return res.status(400).json({
-            error: "rideId is required."
-        })
     try {
         let ride = await rideModel
             .findById(rideId)
@@ -294,10 +290,10 @@ module.exports.getCurrentRide = async (req, res, next) => {
 }
 
 module.exports.cancelBooking = async (req, res, next) => {
-    try {
-        const { rideId } = req.body;
-        const userId = req.user.id;
+    const { rideId } = req.body;
+    const userId = req.user.id;
 
+    try {
         const ride = await rideModel.findOne({ _id: rideId, status: "pending" });
         if (!ride) {
             return res.status(404).json({ error: 'Ride not found' });
@@ -335,10 +331,10 @@ module.exports.cancelBooking = async (req, res, next) => {
     }
 }
 module.exports.cancelRide = async (req, res, next) => {
+    const { rideId } = req.body;
+    const userId = req.user.id;
+    
     try {
-        const { rideId } = req.body;
-        const userId = req.user.id;
-
         const ride = await rideModel.findOne({ _id: rideId, status: "pending" });
         if (!ride) {
             return res.status(404).json({ error: 'Ride not found' });
@@ -361,7 +357,7 @@ module.exports.cancelRide = async (req, res, next) => {
         const notificationMessage = `The ride from ${ride.from} to ${ride.to} has been canceled by the driver.`;
         await User.updateMany(
             { _id: { $in: ride.passengers } },
-            { $push: { messages: { message: notificationMessage} } }
+            { $push: { messages: { message: notificationMessage } } }
         );
 
         const io = getIoInstance();
@@ -378,7 +374,7 @@ module.exports.cancelRide = async (req, res, next) => {
 
 module.exports.removePassenger = async (req, res, next) => {
     const { rideId, passengerId } = req.body;
-    
+
     try {
         const ride = await rideModel.findOne({ _id: rideId, status: "pending" });
         if (!ride) {
@@ -417,10 +413,10 @@ module.exports.removePassenger = async (req, res, next) => {
 }
 
 module.exports.completeRide = async (req, res, next) => {
+    const { rideId } = req.body;
+    const userId = req.user.id;
+    
     try {
-        const { rideId } = req.body;
-        const userId = req.user.id;
-        
         const ride = await rideModel.findOne({ _id: rideId, driver: userId, status: "progress" });
 
         if (!ride) {
@@ -440,7 +436,7 @@ module.exports.completeRide = async (req, res, next) => {
 
 cron.schedule('0 * * * * *', async () => {
     const nowUtc = new Date(); // Current UTC time
-    
+
     try {
         await rideModel.updateMany(
             { status: 'pending', datetime: { $lte: nowUtc } },

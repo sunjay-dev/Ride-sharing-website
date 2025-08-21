@@ -5,7 +5,7 @@ const { upload } = require('../utils/multer.utils.js');
 const { restrictToUserlogin, restrictToLoginedUser, restrictToCorrectResetLink } = require('../middlewares/auth.middleware.js');
 const passport = require("../config/MSauth.services.js");
 const { validate } = require('../middlewares/validate.middlewares.js');
-const { loginSchema, forgetPasswordSchema } = require('../schemas/userSchema.js');
+const { loginSchema, forgetPasswordSchema, resetPasswordSchema } = require('../schemas/userSchema.js');
 
 router.get('/', restrictToLoginedUser, (req, res) => {
     res.render('index.ejs');
@@ -65,6 +65,6 @@ router.post('/profile', restrictToUserlogin, userController.showProfile);
 
 router.post('/getUserRideStats', restrictToUserlogin, userController.getUserRideStats);
 
-router.post('/resetPassword', userController.resetPassword);
+router.post('/resetPassword', validate(resetPasswordSchema), userController.resetPassword);
 
 module.exports = router;
