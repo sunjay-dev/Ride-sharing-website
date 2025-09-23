@@ -33,7 +33,12 @@ module.exports.registerUser = async (req, res, next) => {
         });
 
         const token = setUser(newUser._id);
-        res.cookie("token", token);
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: true,
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+        });
 
         return res.redirect("/home");
     } catch (error) {
@@ -70,7 +75,12 @@ module.exports.loginUser = async (req, res, next) => {
 
         const token = setUser(user._id);
 
-        res.cookie('token', token);
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: true,
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+        });
         return res.status(200).json({
             message: "Login Success"
         })
@@ -199,7 +209,12 @@ module.exports.resetPassword = async (req, res, next) => {
         await user.save();
 
         const Token_cookie = setUser(user._id);
-        res.cookie('token', Token_cookie);
+        res.cookie('token', Token_cookie, {
+            httpOnly: true,
+            secure: true,
+            sameSite: true,
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+        });
 
         return res.status(200).json({
             message: "Password reset successfully"
@@ -240,7 +255,12 @@ module.exports.microsoftAuthCallback = async (req, res, next) => {
             return res.redirect(`/login?error=${encodeURIComponent(errorMessage)}`);
         }
 
-        res.cookie("token", setUser(user._id));
+        res.cookie("token", setUser(user._id), {
+            httpOnly: true,
+            secure: true,
+            sameSite: true,
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+        });
         res.redirect("/home");
     })(req, res, next);
 }

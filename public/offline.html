@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Offline</title>
+  <link rel="icon" href="/logo.webp" />
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      height: 100vh;
+    }
+    button {    
+      transition: background-color 0.2s;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+  <img class="w-36 mb-3" src="/logo.webp" alt="App Logo" />
+  <h1 class="text-2xl font-bold tracking-tight">You’re Offline</h1>
+  <p class="text-gray-500 text-base mt-2">Please check your internet connection.</p>
+  <button 
+    class="hover:bg-[#555be6] mt-6 px-6 py-2 bg-[#6d74fc] text-white text-sm font-medium border-none cursor-pointer rounded-lg shadow-sm" 
+    onclick="window.location.reload()"
+  >
+    Reload
+  </button>
+</body>
+</html>

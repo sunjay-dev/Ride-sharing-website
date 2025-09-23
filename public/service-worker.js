@@ -1,13 +1,13 @@
-const CACHE_NAME = "uniride-cache-v1";
-const urlsToCache = [
-  "/",
+const CACHE_NAME = "uniride-cache-v1.1";
+const FONT_CACHE = "uniride-fonts-v1";
+
+const PRECACHE_URLS = [
   "/style.css",
   "/login/script.js",
   "/register/script.js",
   "/index/script.js",
   "/logo.webp",
   "/uniRide.webp",
-  "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
   "/map_moblie.webp",
   "/eye-svgrepo-com.svg",
   "/eye-password-hide-svgrepo-com.svg",
@@ -19,42 +19,88 @@ const urlsToCache = [
   "/home/history.webp",
   "/home/motorcycle.webp",
   "/home/plus.webp",
-  "/home/search.webp"
+  "/home/search.webp",
+  "/offline.html",
 ];
 
-// Precache static assets
+// Install: Precache essential files
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(urlsToCache))
+    caches.open(CACHE_NAME).then(async (cache) => {
+      try {
+        await cache.addAll(PRECACHE_URLS);
+      } catch (err) {
+        console.warn("Some precache resources failed:", err);
+      }
+    })
   );
+  self.skipWaiting();
 });
 
-// Activate: delete old caches
+// Activate: Clean old caches
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
-      Promise.all(keys.map((key) => key !== CACHE_NAME && caches.delete(key)))
+      Promise.all(
+        keys.map((key) => {
+          if (key !== CACHE_NAME && key !== FONT_CACHE) {
+            return caches.delete(key);
+          }
+        })
+      )
     )
   );
+  self.clients.claim();
 });
 
-// Fetch: return cached or fetch & cache dynamically
+// Fetch strategy
 self.addEventListener("fetch", (event) => {
-  event.respondWith(
-    caches.match(event.request).then((cached) => {
-      if (cached) return cached;
+  if (event.request.method !== "GET") return;
 
-      return fetch(event.request).then((response) => {
-        if (
-          event.request.url.startsWith(self.location.origin) &&
-          event.request.method === "GET"
-        ) {
-          caches.open(CACHE_NAME).then((cache) =>
-            cache.put(event.request, response.clone())
-          );
-        }
-        return response;
-      });
+  // Navigation (HTML pages)
+  if (event.request.mode === "navigate") {
+    event.respondWith(
+      fetch(event.request).catch(() => caches.match("/offline.html"))
+    );
+    return;
+  }
+
+  // Fonts (cache separately)
+  if (
+    event.request.url.includes("fonts.googleapis.com") ||
+    event.request.url.includes("fonts.gstatic.com")
+  ) {
+    event.respondWith(
+      caches.open(FONT_CACHE).then(async (cache) => {
+        const cached = await cache.match(event.request);
+        const network = fetch(event.request)
+          .then((response) => {
+            if (response && response.ok) {
+              cache.put(event.request, response.clone());
+            }
+            return response;
+          })
+          .catch(() => cached);
+        return cached || network;
+      })
+    );
+    return;
+  }
+
+  // Static assets (stale-while-revalidate)
+  event.respondWith(
+    caches.open(CACHE_NAME).then(async (cache) => {
+      const cached = await cache.match(event.request);
+      const network = fetch(event.request)
+        .then((response) => {
+          if (response && response.ok) {
+            cache.put(event.request, response.clone());
+          }
+          return response;
+        })
+        .catch(() => cached);
+
+      return cached || network;
     })
   );
 });
