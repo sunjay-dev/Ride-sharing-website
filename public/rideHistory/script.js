@@ -178,9 +178,9 @@ function manageRideDetailsTemplete(ride, driver) {
     if (driver) {
         hd = "hidden"
     }
-    let carImg = `<img src="/bike.png" alt="Driver Photo" class="h-24 object-contain">`;
+    let carImg = `<img src="/bike.webp" alt="Driver Photo" class="h-24 object-contain">`;
     if (ride.vehicleDetails.vehicleType === "car") {
-        carImg = `<img src="/car.png" alt="Driver Photo" class="h-[4.5rem] object-contain">`;
+        carImg = `<img src="/car.webp" alt="Driver Photo" class="h-[4.5rem] object-contain">`;
     }
     let passengerImg = ``;
     for (let passenger of ride.passengers) {
@@ -199,8 +199,8 @@ function manageRideDetailsTemplete(ride, driver) {
       </div>
       <div class="sm:flex sm:flex-row h-full">
         <div class="relative sm:w-1/2 sm:h-full flex-shrink-0">
-          <img src="/map_moblie.png" alt="Map Screenshot" class="w-full h-44 object-cover rounded-l-lg sm:hidden">
-            <img src="/map_desktop.png" alt="Map Screenshot" class="w-full h-full object-cover rounded-l-lg hidden sm:block">
+          <img src="/map_moblie.webp" alt="Map Screenshot" class="w-full h-44 object-cover rounded-l-lg sm:hidden">
+            <img src="/map_desktop.webp" alt="Map Screenshot" class="w-full h-full object-cover rounded-l-lg hidden sm:block">
         </div>
         <div class="px-6 py-4 sm:w-1/2 sm:overflow-y-auto">
           <div class="flex justify-between mb-4">

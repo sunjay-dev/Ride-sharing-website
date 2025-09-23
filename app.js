@@ -32,7 +32,7 @@ app.use('/help',complaintRoutes);
 app.use(express.static(path.join(__dirname, "public"), { 
     setHeaders: (res, path) => {
         res.status(200);
-        res.setHeader('Cache-Control', 'public, max-age=31536000');
+        res.setHeader('Cache-Control', 'public, max-age=604800');
     }
 }));
 

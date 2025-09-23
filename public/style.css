@@ -1936,6 +1936,18 @@ video {
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 
+button {
+  cursor: pointer;
+}
+
+img {
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  -webkit-user-drag: none;
+}
+
 .selection\:bg-\[\#6d74fc\] *::-moz-selection {
   --tw-bg-opacity: 1;
   background-color: rgb(109 116 252 / var(--tw-bg-opacity, 1));

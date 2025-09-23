@@ -145,7 +145,7 @@ async function updateRidesUI(rides, clear = true) {
     // if (ridescount === 0) {
     //     ridesBoxes.innerHTML = `
     //         <div id="ridesBoxes" class="flex-grow flex flex-col items-center justify-center text-center  min-h-[calc(100vh-14rem)]">
-    //         <img src="/home/car_logo.png" alt="Car with people" class="w-52 mb-4">
+    //         <img src="/home/car_logo.webp" alt="Car with people" class="w-52 mb-4">
     //         <h1 class="text-3xl font-bold text-gray-500">No rides available.</h1>
     //         <p class="text-gray-500 mt-2">Please try back later.</p>
     // </div>
@@ -189,9 +189,9 @@ function manageRidesTemplete(ride) {
         </div>`;
 }
 function manageRideDetailsTemplete(ride) {
-    let carImg = `<img src="/bike.png" alt="Driver Photo" class="h-24 object-contain">`;
+    let carImg = `<img src="/bike.webp" alt="Driver Photo" class="h-24 object-contain">`;
     if(ride.vehicleDetails.vehicleType === "car"){
-        carImg = `<img src="/car.png" alt="Driver Photo" class="h-[4.5rem] object-contain">`;
+        carImg = `<img src="/car.webp" alt="Driver Photo" class="h-[4.5rem] object-contain">`;
     }
     let passengerImg = ``;
     for (let passenger of ride.passengers) {
@@ -214,8 +214,8 @@ function manageRideDetailsTemplete(ride) {
                 </svg>
             </button>
             <!-- Map Screenshot -->
-            <img src="/map_moblie.png" alt="Map Screenshot" class="w-full h-44 object-cover rounded-l-lg sm:hidden">
-            <img src="/map_desktop.png" alt="Map Screenshot" class="w-full h-full object-cover rounded-l-lg hidden sm:block">
+            <img src="/map_moblie.webp" alt="Map Screenshot" class="w-full h-44 object-cover rounded-l-lg sm:hidden">
+            <img src="/map_desktop.webp" alt="Map Screenshot" class="w-full h-full object-cover rounded-l-lg hidden sm:block">
         </div>
             <div id="readOnlyerror"
             class="absolute left-1/2 w-max transform z-20 -translate-x-1/2 text-red-500 sm:text-[1rem] font-semibold opacity-0 pointer-events-none transition-all duration-500 ease-out">

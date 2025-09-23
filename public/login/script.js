@@ -64,7 +64,6 @@ function loginFn(e) {
         }).finally(() => {
             loader.classList.add('hidden');
             loader.classList.remove('flex');
-            document.getElementById('email-address').value = '';
             document.getElementById('password').value = '';
         });
 }

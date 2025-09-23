@@ -60,7 +60,6 @@ function fetchTwoAvailableRides() {
         }
         return response.json();
     }).then(data => {
-        console.log(data)
         availableRideContainer.innerHTML = '';
         if(data.length === 0){
             availableRideContainer.innerHTML = `<div id="noCurrentRideDiv" class="bg-[#6d74fc] opacity-90 rounded-xl mt-2 py-4">
@@ -154,9 +153,9 @@ function manageNoCurrentTemplete() {
 }
 
 function manageRideDetailsTempleteForPassenger(ride) {
-    let carImg = `<img src="/bike.png" alt="Driver Photo" class="h-24 object-contain">`;
+    let carImg = `<img src="/bike.webp" alt="Driver Photo" class="h-24 object-contain">`;
     if(ride.vehicleDetails.vehicleType === "car"){
-        carImg = `<img src="/car.png" alt="Driver Photo" class="h-[4.5rem] object-contain">`;
+        carImg = `<img src="/car.webp" alt="Driver Photo" class="h-[4.5rem] object-contain">`;
     }
 
     let passengerImg = ``;
@@ -180,8 +179,8 @@ function manageRideDetailsTempleteForPassenger(ride) {
                 </svg>
             </button>
             <!-- Map Screenshot -->
-            <img src="/map_moblie.png" alt="Map Screenshot" class="w-full h-44 object-cover rounded-l-lg sm:hidden">
-            <img src="/map_desktop.png" alt="Map Screenshot" class="w-full h-full object-cover rounded-l-lg hidden sm:block">
+            <img src="/map_moblie.webp" alt="Map Screenshot" class="w-full h-44 object-cover rounded-l-lg sm:hidden">
+            <img src="/map_desktop.webp" alt="Map Screenshot" class="w-full h-full object-cover rounded-l-lg hidden sm:block">
         </div>
 
         <!-- Content Section -->
@@ -248,9 +247,9 @@ function manageRideDetailsTempleteForPassenger(ride) {
 
 }
 function manageRideDetailsTempleteForDriver(ride) {
-    let carImg = `<img src="/bike.png" alt="Driver Photo" class="h-24 object-contain">`;
+    let carImg = `<img src="/bike.webp" alt="Driver Photo" class="h-24 object-contain">`;
     if(ride.vehicleDetails.vehicleType === "car"){
-        carImg = `<img src="/car.png" alt="Driver Photo" class="h-[4.5rem] object-contain">`;
+        carImg = `<img src="/car.webp" alt="Driver Photo" class="h-[4.5rem] object-contain">`;
     }
     let passengerDetails = '';
     if (ride.passengers.length > 0) {
@@ -302,8 +301,8 @@ function manageRideDetailsTempleteForDriver(ride) {
                 </svg>
             </button>
             <!-- Map Screenshot -->
-           <img src="/map_moblie.png" alt="Map Screenshot" class="w-full h-44 object-cover rounded-l-lg sm:hidden">
-            <img src="/map_desktop.png" alt="Map Screenshot" class="w-full h-full object-cover rounded-l-lg hidden sm:block">
+           <img src="/map_moblie.webp" alt="Map Screenshot" class="w-full h-44 object-cover rounded-l-lg sm:hidden">
+            <img src="/map_desktop.webp" alt="Map Screenshot" class="w-full h-full object-cover rounded-l-lg hidden sm:block">
         </div>
 
         <!-- Content Section -->

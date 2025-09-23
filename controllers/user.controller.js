@@ -82,6 +82,7 @@ module.exports.loginUser = async (req, res, next) => {
 }
 
 module.exports.logout = async (req, res, next) => {
+    res.setHeader("Cache-Control", "no-store");
     res.clearCookie('token');
     res.redirect('/login');
 }

@@ -1,5 +1,4 @@
 const { z } = require("zod");
-const mongoose = require("mongoose");
 
 const nameRegex = /^[A-Za-z\s]+$/;
 const departmentRegex = /^[A-Za-z\s]+$/;

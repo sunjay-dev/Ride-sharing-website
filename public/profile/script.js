@@ -72,7 +72,6 @@ function getUserRideStats(){
         }
         return response.json();
     }).then(data => {
-        console.log(data);
         RidesForm.innerHTML = "";
         let values = ["Created", "Completed", "Canceled"]
 
