@@ -1,7 +1,7 @@
 {
   "name": "UniRide",
   "short_name": "UniRide",
-  "start_url": "/home",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#6d74fc",
   "theme_color": "#6d74fc",

@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 3000);
     setTimeout(() => {
         splash.classList.add("hidden");
+        mainContent.classList.add("flex");
         mainContent.classList.remove("hidden");
     }, 3500);
 });

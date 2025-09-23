@@ -6,7 +6,7 @@ const connectToMongoDB = require('./config/db.connection.js');
 const app = express();
 const passport = require('passport'); 
 
-connectToMongoDB(process.env.mongoURI).then(()=>{
+connectToMongoDB(process.env.MONGODB_URI).then(()=>{
     console.log('Mongoose connected!')
 })
 

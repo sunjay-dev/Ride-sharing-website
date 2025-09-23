@@ -30,6 +30,7 @@ This is a ride-sharing platform designed to help MUET students conveniently find
 ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
 ![Canva](https://img.shields.io/badge/Canva-%2300C4CC.svg?style=for-the-badge&logo=Canva&logoColor=white)
 ![Zod](https://img.shields.io/badge/Zod-7C3AED.svg?style=for-the-badge&logo=zod&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED.svg?style=for-the-badge&logo=docker&logoColor=white)
 
 
 - **Frontend**: EJS (Embedded JavaScript Templates) + Tailwind CSS
@@ -67,7 +68,7 @@ CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
 JWT_SECRET=your_jwt_secret
 PORT=3000
-senderEmail=EMAIL_ADDRESS
+SENDER_EMAIL=EMAIL_ADDRESS
 CLIENT_URL=http://localhost:3000
 RESEND_EMAIL_API_KEY=RESEND_EMAIL_API_KEY
 MICROSOFT_CLIENT_ID=MICROSOFT_CLIENT_ID

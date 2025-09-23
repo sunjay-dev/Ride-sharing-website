@@ -1,7 +1,6 @@
 const cloudinary = require('../config/cloudinary.connection.js');
 
-
-async function uploadImageToCloudinary(imageBuffer) {
+ async function uploadImageToCloudinary(imageBuffer) {
   return new Promise((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream(
       { resource_type: 'image', folder: 'Carpooling', quality: 'auto' },

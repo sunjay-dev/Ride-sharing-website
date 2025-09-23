@@ -16,6 +16,7 @@ router.get('/login', restrictToLoginedUser, (req, res) => {
 });
 
 router.get("/auth/microsoft", restrictToLoginedUser, passport.authenticate("azure_ad_oauth2", { prompt: "select_account" }));
+router.get("/auth/microsoft/callback", restrictToLoginedUser, userController.microsoftAuthCallback);
 
 router.get(['/register', '/signup'], restrictToLoginedUser, (req, res) => {
     res.render('register.ejs', {
@@ -48,7 +49,6 @@ router.get('/profile', restrictToUserlogin, (req, res) => {
     res.render('profile.ejs');
 });
 
-router.get("/auth/microsoft/callback", restrictToLoginedUser, userController.microsoftAuthCallback);
 router.get('/logout', userController.logout);
 
 router.post('/register', upload.single('img'), userController.registerUser);

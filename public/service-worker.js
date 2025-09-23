@@ -1,5 +1,5 @@
-const CACHE_NAME = "uniride-cache-v1.1";
-const FONT_CACHE = "uniride-fonts-v1";
+const CACHE_NAME = "uniride-cache-v1.2";
+const FONT_CACHE = "uniride-fonts-v1.2";
 
 const PRECACHE_URLS = [
   "/style.css",
@@ -55,6 +55,14 @@ self.addEventListener("activate", (event) => {
 
 // Fetch strategy
 self.addEventListener("fetch", (event) => {
+
+  const url = new URL(event.request.url);
+
+  if (url.pathname.startsWith("/socket.io/")) {
+    event.respondWith(fetch(event.request));
+    return; 
+  }
+
   if (event.request.method !== "GET") return;
 
   // Navigation (HTML pages)

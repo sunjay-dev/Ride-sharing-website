@@ -53,7 +53,7 @@ async function sendemail(Url, email, firstName, lastName) {
 `;
 
   await resend.emails.send({
-    from: process.env.senderEmail,
+    from: process.env.SENDER_EMAIL,
     to: email,
     subject: 'Password Reset Request',
     html: emailTemplate

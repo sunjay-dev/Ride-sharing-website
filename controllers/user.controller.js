@@ -1,6 +1,6 @@
 const userModel = require('../models/user.models.js');
 const rideModel = require('../models/ride.models.js');
-const { uploadImageToCloudinary } = require('../utils/cloudinary.utils.js');
+const { uploadImageToCloudinary }  = require('../utils/cloudinary.utils.js');
 const { setUser } = require('../services/auth.services.js');
 const { sendemail } = require('../services/emailsend.js');
 const jwt = require('jsonwebtoken');
@@ -258,7 +258,7 @@ module.exports.microsoftAuthCallback = async (req, res, next) => {
         res.cookie("token", setUser(user._id), {
             httpOnly: true,
             secure: true,
-            sameSite: true,
+            sameSite: "lax",
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
         res.redirect("/home");

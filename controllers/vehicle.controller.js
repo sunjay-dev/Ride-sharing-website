@@ -32,7 +32,7 @@ module.exports.register = async (req, res, next) => {
 module.exports.getVehicles = async (req, res, next) => {
     try {
         const vehicles = await vehicleModel.find({ user: req.user.id, deleted: false });
-        return res.status(200).json(vehicles)
+        res.status(200).json(vehicles);
     } catch (error) {
         console.error("Error while deleting vehicle:", error);
         res.status(500).json({ message: "Something went wrong. Please try again later." });

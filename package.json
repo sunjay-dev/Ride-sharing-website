@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
+    "bun": "bun server.js",
     "build:css": "npx tailwindcss -i ./src/input.css -o ./public/style.css --watch"
   },
   "author": "",
