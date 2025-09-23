@@ -592,6 +592,10 @@ video {
   pointer-events: none;
 }
 
+.static {
+  position: static;
+}
+
 .fixed {
   position: fixed;
 }
@@ -1946,6 +1950,27 @@ img {
      -moz-user-select: none;
           user-select: none;
   -webkit-user-drag: none;
+}
+
+.animate-checkmark {
+  animation: checkmark 2s ease-in-out forwards;
+}
+
+@keyframes checkmark {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .selection\:bg-\[\#6d74fc\] *::-moz-selection {

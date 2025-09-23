@@ -10,6 +10,3 @@ document.addEventListener("DOMContentLoaded", () => {
         mainContent.classList.remove("hidden");
     }, 3500);
 });
-document.querySelector('button').onclick = ()=>{
-    window.location.href='/signup';
-} 
