@@ -233,7 +233,7 @@ function autocomplete(inputElement, listId, filterFn) {
     filteredPlaces.forEach((place) => {
       if (place.toLowerCase().startsWith(value.toLowerCase())) {
         const itemElement = document.createElement("div");
-        itemElement.innerHTML = place;
+        itemElement.textContent = place;
         itemElement.classList.add("cursor-pointer", "p-2", "hover:bg-blue-100");
         itemElement.addEventListener("click", function () {
           inputElement.value = place;

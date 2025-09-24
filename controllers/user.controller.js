@@ -36,7 +36,7 @@ module.exports.registerUser = async (req, res, next) => {
         res.cookie("token", token, {
             httpOnly: true,
             secure: true,
-            sameSite: true,
+            sameSite: "strict",
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
 
@@ -78,7 +78,7 @@ module.exports.loginUser = async (req, res, next) => {
         res.cookie("token", token, {
             httpOnly: true,
             secure: true,
-            sameSite: true,
+            sameSite: "strict",
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
         return res.status(200).json({
@@ -212,7 +212,7 @@ module.exports.resetPassword = async (req, res, next) => {
         res.cookie('token', Token_cookie, {
             httpOnly: true,
             secure: true,
-            sameSite: true,
+            sameSite: "strict",
             maxAge: 7 * 24 * 60 * 60 * 1000,
         });
 

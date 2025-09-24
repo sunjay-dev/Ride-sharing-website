@@ -45,6 +45,10 @@ module.exports.deleteVehicles = async (req, res, next) => {
     try {
         const vehicle = await vehicleModel.findOne({ user: req.user.id, numberPlate: numberPlate });
 
+        if (!vehicle) {
+            return res.status(404).json({ message: "Vehicle not found." });
+        }
+
         const ride = await rideModel.findOne({
             vehicleDetails: vehicle._id,
             driver: req.user.id,

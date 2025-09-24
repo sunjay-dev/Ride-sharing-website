@@ -7,7 +7,7 @@ const app = express();
 const passport = require('passport'); 
 
 connectToMongoDB(process.env.MONGODB_URI).then(()=>{
-    console.log('Mongoose connected!')
+    console.log('Mongoose connected!');
 })
 
 app.use(passport.initialize());

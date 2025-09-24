@@ -100,7 +100,7 @@ function autocomplete(inputElement) {
         departments.forEach((country) => {
             if (country.toLowerCase().startsWith(value.toLowerCase())) {
                 const itemElement = document.createElement("div");
-                itemElement.innerHTML = country;
+                itemElement.textContent = country;
                 itemElement.classList.add("cursor-pointer", "p-2", "hover:bg-blue-100");
                 itemElement.addEventListener("click", function() {
                     inputElement.value = country;
