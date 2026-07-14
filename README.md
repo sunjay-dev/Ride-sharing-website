@@ -1,9 +1,11 @@
 # Ride Sharing Website
 
 ## 📌 Overview
+
 This is a ride-sharing platform designed to help MUET students conveniently find and offer rides, reducing travel costs and promoting eco-friendly commuting. Users can create ride offers, search for available rides, manage their trips, and receive real-time updates.
 
 ## 🚀 Features
+
 - **User Authentication**: Secure login and signup system.
 - **Offer a Ride**: Drivers can create ride offers.
 - **Find a Ride**: Passengers can search for available rides.
@@ -15,23 +17,8 @@ This is a ride-sharing platform designed to help MUET students conveniently find
 - **Microsoft Login**: Users can Login and Sign Up using their Microsoft university email.
 
 ## 🛠 Tech Stack
-![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) 
-![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) 
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) 
-![EJS](https://img.shields.io/badge/ejs-%23B4CA65.svg?style=for-the-badge&logo=ejs&logoColor=black) 
-![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) 
-![Socket.io](https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101) 
-![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) 
-![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white) 
-![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) 
-![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white) 
-![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render&logoColor=white)
-![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
-![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
-![Canva](https://img.shields.io/badge/Canva-%2300C4CC.svg?style=for-the-badge&logo=Canva&logoColor=white)
-![Zod](https://img.shields.io/badge/Zod-7C3AED.svg?style=for-the-badge&logo=zod&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2496ED.svg?style=for-the-badge&logo=docker&logoColor=white)
 
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![EJS](https://img.shields.io/badge/ejs-%23B4CA65.svg?style=for-the-badge&logo=ejs&logoColor=black) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) ![Socket.io](https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white) ![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render&logoColor=white) ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white) ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white) ![Canva](https://img.shields.io/badge/Canva-%2300C4CC.svg?style=for-the-badge&logo=Canva&logoColor=white) ![Zod](https://img.shields.io/badge/Zod-7C3AED.svg?style=for-the-badge&logo=zod&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ED.svg?style=for-the-badge&logo=docker&logoColor=white)
 
 - **Frontend**: EJS (Embedded JavaScript Templates) + Tailwind CSS
 - **Backend**: Node.js + Express.js
@@ -41,8 +28,8 @@ This is a ride-sharing platform designed to help MUET students conveniently find
 - **Email Service**: Resend
 - **Real-time Updates**: WebSockets
 
-
 ## 🔧 Installation
+
 1. Clone the repository:
    ```bash
    git clone https://github.com/sunjay-dev/Ride-sharing-website
@@ -57,10 +44,12 @@ This is a ride-sharing platform designed to help MUET students conveniently find
    ```bash
    npm start
    ```
-The app will be running at `http://localhost:3000`
+   The app will be running at `http://localhost:3000`
 
 ## Environment Variables
+
 Create a `.env` file in the root directory and add the following:
+
 ```env
 MONGO_URI=mongodb+srv://your_username:your_password@your_cluster.mongodb.net/database_name
 CLOUDINARY_CLOUD_NAME=your_cloud_name
@@ -75,29 +64,35 @@ MICROSOFT_CLIENT_ID=MICROSOFT_CLIENT_ID
 MICROSOFT_CLIENT_SECRET=MICROSOFT_CLIENT_SECRET
 ```
 
-
 ## 🔑 User Authentication
+
 - **Sign Up** with university email (`@students.muet.edu.pk`).
 - **Login** to access ride-sharing features.
 - **Forgot Password?** Reset using an emailed link.
 
 ## 🚀 What's Next?
+
 - Develop a mobile app for iOS & Android.
 - Add a feature for drivers to approve passengers before joining a ride.
 
 ## 🏆 Achievements
 
-- 🎉 Hackathon: Hack for Humanity🥇 
+- 🎉 Hackathon: Hack for Humanity🥇
 - Public Voting Winner🏅
 - Ranked 20th among all participants📜
 
 ## ![Certificate Awarded](https://github.com/user-attachments/assets/bd63539d-524f-4767-afac-98fa8d1e897f)
 
-
 ## 🤝 Contributors
+
 - **Varoon Kumar** - UI Designer
 - **Sunjay Kumar** - MERN Stack Developer (Backend Focused)
 - **Muhammad Sajid** - MERN Stack Developer (Frontend Focused)
 
+## Acknowledgments
+
+We would like to thank Dr. Rabeea Jaffari for her guidance, project design, supervision, and continuous mentorship throughout this project.
+
 ## 🎯 Support Us
+
 If you like our project, please support us by contributing open source! 🙌
